@@ -1,0 +1,8 @@
+<resources>
+    <string name="app_name">FinalProject</string>
+    <string name="song_title">No Song Playing</string>
+    <string name="left_button">\"\"</string>
+    <string name="right_button">\"\"</string>
+    <string name="game_title">Mix-Dynam</string>
+    <string name="startsong_twinkle">Twinkle Twinkle</string>
+</resources>
