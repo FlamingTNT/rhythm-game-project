@@ -14,8 +14,11 @@ public class Note {
     private long timeDelay;
     private MusicScreen screen;
     private ConstraintLayout layout;
-    private int screenWidth;
-    private int screenHeight;
+    public static int screenWidth;
+    public static int screenHeight;
+    public static float totalDistance;
+    public final static int DURATION = 1000;
+    private View noteView;
     Note(boolean isLeft, long timeDelay, MusicScreen screen) {
         this.isLeft = isLeft;
         this.timeDelay = timeDelay;
@@ -28,17 +31,23 @@ public class Note {
         display.getSize(size);
         screenWidth = size.x;
         screenHeight = size.y;
+        totalDistance = ((screenWidth / 2) + 50f);
     }
 
     public long getTimeDelay() {
         return timeDelay;
     }
 
+    public View getView() {
+        return noteView;
+    }
+
     public void start() {
-        System.out.println("START CALL RECEIVED BY NOTE");
         final ImageView note = new ImageView(screen);
+        noteView = note;
         final ConstraintLayout cl = screen.findViewById(R.id.music_screen);
         if (isLeft) {
+            Song.addLeftNote(this);
             cl.post(new Runnable() {
                 @Override
                 public void run() {
@@ -46,8 +55,8 @@ public class Note {
                     note.setVisibility(View.VISIBLE);
                     note.setX((screenWidth / 2) - (note.getDrawable().getIntrinsicWidth()));
                     note.setY((screenHeight / 2) - (note.getDrawable().getIntrinsicHeight() / 2));
-                    final Animation move = new TranslateAnimation(0, -((screenWidth / 2) + 50f), 0, 0);
-                    move.setDuration(1000);
+                    final Animation move = new TranslateAnimation(0, -totalDistance, 0, 0);
+                    move.setDuration(DURATION);
                     move.setAnimationListener(new Animation.AnimationListener() {
                         @Override
                         public void onAnimationStart(Animation animation) {
@@ -56,8 +65,8 @@ public class Note {
 
                         @Override
                         public void onAnimationEnd(Animation animation) {
-                            System.out.println("Note destroyed");
                             layout.removeView(note);
+                            stop();
                         }
 
                         @Override
@@ -68,11 +77,11 @@ public class Note {
                     ConstraintLayout.LayoutParams lp = new ConstraintLayout.LayoutParams(ConstraintLayout.LayoutParams.WRAP_CONTENT, ConstraintLayout.LayoutParams.WRAP_CONTENT);
                     note.setLayoutParams(lp);
                     layout.addView(note);
-                    System.out.println("Note should be visible");
                     note.startAnimation(move);
                 }
             });
         } else {
+            Song.addRightNote(this);
             cl.post(new Runnable() {
                 @Override
                 public void run() {
@@ -80,8 +89,8 @@ public class Note {
                     note.setVisibility(View.VISIBLE);
                     note.setX(screenWidth / 2);
                     note.setY((screenHeight / 2) - (note.getDrawable().getIntrinsicHeight() / 2));
-                    final Animation move = new TranslateAnimation(0, (screenWidth / 2) + 50f, 0, 0);
-                    move.setDuration(1000);
+                    final Animation move = new TranslateAnimation(0, totalDistance, 0, 0);
+                    move.setDuration(DURATION);
                     move.setAnimationListener(new Animation.AnimationListener() {
                         @Override
                         public void onAnimationStart(Animation animation) {
@@ -90,8 +99,8 @@ public class Note {
 
                         @Override
                         public void onAnimationEnd(Animation animation) {
-                            System.out.println("Note destroyed");
                             layout.removeView(note);
+                            stop();
                         }
 
                         @Override
@@ -102,11 +111,17 @@ public class Note {
                     ConstraintLayout.LayoutParams lp = new ConstraintLayout.LayoutParams(ConstraintLayout.LayoutParams.WRAP_CONTENT, ConstraintLayout.LayoutParams.WRAP_CONTENT);
                     note.setLayoutParams(lp);
                     layout.addView(note);
-                    System.out.println("Note should be visible");
                     note.startAnimation(move);
                 }
             });
         }
     }
 
+    private void stop() {
+        if (isLeft) {
+            Song.removeLeftNote(this);
+        } else {
+            Song.removeRightNote(this);
+        }
+    }
 }

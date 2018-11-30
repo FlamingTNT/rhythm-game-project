@@ -4,7 +4,7 @@ import android.app.Activity;
 import android.content.Intent;
 import android.content.pm.ActivityInfo;
 import android.os.Bundle;
-import android.os.Handler;
+import android.support.constraint.ConstraintLayout;
 import android.view.View;
 import android.view.animation.Animation;
 import android.view.animation.AnimationSet;
@@ -15,10 +15,13 @@ import android.widget.TextView;
 
 public class MusicScreen extends Activity {
     private SongManager manager;
+    private ConstraintLayout screen;
+    private int score = 0;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.music_screen);
+        screen = findViewById(R.id.music_screen);
         this.setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE);
         manager = new SongManager(this);
 
@@ -48,13 +51,6 @@ public class MusicScreen extends Activity {
         text.startAnimation(set);
         cores.startAnimation(coresAnimation);
 
-        /*final Handler handler = new Handler();
-        handler.postDelayed(new Runnable() {
-            @Override
-            public void run() {
-                manager.playSong(0);
-            }
-        }, 5000);*/
         new Thread(new Runnable() {
             @Override
             public void run() {
@@ -70,10 +66,36 @@ public class MusicScreen extends Activity {
     }
 
     public void leftClicked(View view) {
-
+        if (Song.getActiveLeftNotes().size() > 0) {
+            Note closestNote = Song.getActiveLeftNotes().get(0);
+            double totalTimeTaken = System.currentTimeMillis() - (Song.startTime + closestNote.getTimeDelay() + SongManager.delay);
+            double percentDistCovered = totalTimeTaken / (Note.DURATION - SongManager.delay);
+            System.out.println("Total time taken: " + totalTimeTaken);
+            System.out.println("Note destroyed! % dist = " + percentDistCovered);
+            if (percentDistCovered >= 0.8 && closestNote.getView() != null) {
+                screen.removeView(closestNote.getView());
+                Song.removeLeftNote(closestNote);
+                closestNote.getView().getAnimation().cancel();
+                score += 100;
+                System.out.println("Your score: " + score);
+            }
+        }
     }
 
     public void rightClicked(View view) {
-
+        if (Song.getActiveRightNotes().size() > 0) {
+            Note closestNote = Song.getActiveRightNotes().get(0);
+            double totalTimeTaken = System.currentTimeMillis() - (Song.startTime + closestNote.getTimeDelay() + SongManager.delay);
+            double percentDistCovered = totalTimeTaken / (Note.DURATION - SongManager.delay);
+            System.out.println("Total time taken: " + totalTimeTaken);
+            System.out.println("Note destroyed! % dist = " + percentDistCovered);
+            if (percentDistCovered >= 0.8 && closestNote.getView() != null) {
+                screen.removeView(closestNote.getView());
+                Song.removeRightNote(closestNote);
+                closestNote.getView().getAnimation().cancel();
+                score += 100;
+                System.out.println("Your score: " + score);
+            }
+        }
     }
 }
