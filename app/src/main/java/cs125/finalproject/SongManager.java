@@ -1,5 +1,7 @@
 package cs125.finalproject;
 
+import android.media.MediaPlayer;
+
 import java.util.ArrayList;
 
 public class SongManager {
@@ -29,6 +31,8 @@ public class SongManager {
     }
 
     public void playSong(int index) {
+        MediaPlayer mp = MediaPlayer.create(screen, R.raw.give_me_candy);
+        mp.start();
         songList.get(index).play();
     }
 }
