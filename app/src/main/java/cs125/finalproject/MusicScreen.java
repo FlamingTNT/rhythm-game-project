@@ -74,15 +74,15 @@ public class MusicScreen extends Activity {
             Note closestNote = Song.getActiveLeftNotes().get(0);
             double totalTimeTaken = System.currentTimeMillis() - (Song.startTime + closestNote.getTimeDelay());
             double percentDistCovered = totalTimeTaken / (Note.DURATION);
-            System.out.println("Total time taken: " + totalTimeTaken);
-            System.out.println("Note destroyed! % dist = " + percentDistCovered);
+            //System.out.println("Total time taken: " + totalTimeTaken);
+            //System.out.println("Note destroyed! % dist = " + percentDistCovered);
             if (percentDistCovered >= 0.8 && closestNote.getView() != null) {
                 screen.removeView(closestNote.getView());
                 Song.removeLeftNote(closestNote);
                 closestNote.getView().getAnimation().cancel();
                 score += 100;
                 updateScore();
-                System.out.println("Your score: " + score);
+                //System.out.println("Your score: " + score);
             }
         }
     }
@@ -92,15 +92,15 @@ public class MusicScreen extends Activity {
             Note closestNote = Song.getActiveRightNotes().get(0);
             double totalTimeTaken = System.currentTimeMillis() - (Song.startTime + closestNote.getTimeDelay());
             double percentDistCovered = totalTimeTaken / (Note.DURATION);
-            System.out.println("Total time taken: " + totalTimeTaken);
-            System.out.println("Note destroyed! % dist = " + percentDistCovered);
+            //System.out.println("Total time taken: " + totalTimeTaken);
+            //System.out.println("Note destroyed! % dist = " + percentDistCovered);
             if (percentDistCovered >= 0.8 && closestNote.getView() != null) {
                 closestNote.getView().getAnimation().cancel();
                 screen.removeView(closestNote.getView());
                 Song.removeRightNote(closestNote);
                 score += 100;
                 updateScore();
-                System.out.println("Your score: " + score);
+                //System.out.println("Your score: " + score);
             }
         }
     }

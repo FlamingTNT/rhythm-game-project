@@ -52,7 +52,7 @@ public class MainActivity extends Activity {
         }
     }*/
 
-    public void startTwinkle(View view) {
+    public void startCandy(View view) {
         Intent intent = new Intent(this, MusicScreen.class);
         intent.putExtra(SONG_TITLE, "Give Me Candy");
         stopColor = true;

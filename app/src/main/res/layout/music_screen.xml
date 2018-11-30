@@ -33,7 +33,6 @@
         android:layout_width="50dp"
         android:layout_height="125dp"
         android:onClick="rightClicked"
-        android:text="@string/right_button"
         app:layout_constraintBaseline_toBaselineOf="@+id/left_button"
         app:layout_constraintEnd_toEndOf="parent" />
 
@@ -44,7 +43,6 @@
         android:layout_marginTop="16dp"
         android:layout_marginBottom="16dp"
         android:onClick="leftClicked"
-        android:text="@string/left_button"
         app:layout_constrainedHeight="false"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -53,7 +51,7 @@
 
     <LinearLayout
         android:id="@+id/core_container"
-        android:layout_width="114dp"
+        android:layout_width="80dp"
         android:layout_height="100dp"
         android:layout_marginStart="8dp"
         android:layout_marginTop="8dp"
@@ -67,7 +65,7 @@
 
         <View
             android:id="@+id/left_core"
-            android:layout_width="57dp"
+            android:layout_width="40dp"
             android:layout_height="100dp"
             android:background="@android:color/holo_blue_dark"
             app:layout_constraintBottom_toBottomOf="parent"
@@ -76,7 +74,7 @@
 
         <View
             android:id="@+id/right_core"
-            android:layout_width="57dp"
+            android:layout_width="40dp"
             android:layout_height="100dp"
             android:background="@android:color/holo_red_dark"
             app:layout_constraintBottom_toBottomOf="parent"
