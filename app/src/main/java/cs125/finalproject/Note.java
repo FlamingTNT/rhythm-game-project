@@ -47,7 +47,7 @@ public class Note {
                     note.setX((screenWidth / 2) - (note.getDrawable().getIntrinsicWidth()));
                     note.setY((screenHeight / 2) - (note.getDrawable().getIntrinsicHeight() / 2));
                     final Animation move = new TranslateAnimation(0, -((screenWidth / 2) + 50f), 0, 0);
-                    move.setDuration(2000);
+                    move.setDuration(1000);
                     move.setAnimationListener(new Animation.AnimationListener() {
                         @Override
                         public void onAnimationStart(Animation animation) {
@@ -81,7 +81,7 @@ public class Note {
                     note.setX(screenWidth / 2);
                     note.setY((screenHeight / 2) - (note.getDrawable().getIntrinsicHeight() / 2));
                     final Animation move = new TranslateAnimation(0, (screenWidth / 2) + 50f, 0, 0);
-                    move.setDuration(2000);
+                    move.setDuration(1000);
                     move.setAnimationListener(new Animation.AnimationListener() {
                         @Override
                         public void onAnimationStart(Animation animation) {
