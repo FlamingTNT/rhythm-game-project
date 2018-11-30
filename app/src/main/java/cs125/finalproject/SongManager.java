@@ -7,7 +7,7 @@ import java.util.ArrayList;
 public class SongManager {
     private ArrayList<Song> songList = new ArrayList<>();
     private MusicScreen screen;
-    final int delay = -715;
+    final int delay = -687;
 
     SongManager(MusicScreen screen) {
         this.screen = screen;
@@ -43,20 +43,20 @@ public class SongManager {
         notes0[24] = new Note(false, 9894   + delay, screen);
         notes0[25] = new Note(true, 10084   + delay, screen);
         notes0[26] = new Note(true, 10325   + delay, screen);
-        notes0[27] = new Note(false,10550    + delay, screen);
+        notes0[27] = new Note(false,10540    + delay, screen);
         notes0[28] = new Note(true, 10782   + delay, screen);
-        notes0[29] = new Note(true, 10984   + delay, screen);
-        notes0[30] = new Note(false, 11384   + delay, screen);
-        notes0[31] = new Note(true, 11614   + delay, screen);
-        notes0[32] = new Note(false, 11820  + delay, screen);
-        notes0[33] = new Note(false,12133    + delay, screen);
-        notes0[34] = new Note(true, 12281  + delay, screen);
-        notes0[35] = new Note(true, 12551   + delay, screen);
-        notes0[36] = new Note(true, 12776   + delay, screen);
-        notes0[37] = new Note(false, 13017   + delay, screen);
-        notes0[38] = new Note(true, 13688   + delay, screen);
-        notes0[39] = new Note(true, 13892  + delay, screen);
-        notes0[40] = new Note(false,14082   + delay, screen);
+        notes0[29] = new Note(true, 11182   + delay, screen);
+        notes0[30] = new Note(false, 11404   + delay, screen);
+        notes0[31] = new Note(true, 11660   + delay, screen);
+        notes0[32] = new Note(false, 11870  + delay, screen);
+        notes0[33] = new Note(false,12163    + delay, screen);
+        notes0[34] = new Note(true, 12331  + delay, screen);
+        notes0[35] = new Note(true, 12623   + delay, screen);
+        notes0[36] = new Note(true, 12848   + delay, screen);
+        notes0[37] = new Note(false, 13289   + delay, screen);
+        notes0[38] = new Note(true, 13740   + delay, screen);
+        notes0[39] = new Note(true, 13924  + delay, screen);
+        notes0[40] = new Note(false,14084   + delay, screen);
         Song song0 = new Song(notes0);
         songList.add(song0);
         System.out.println("Song 0 Added");

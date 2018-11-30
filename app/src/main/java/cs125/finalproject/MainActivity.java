@@ -14,7 +14,7 @@ import android.widget.TextView;
 import java.util.Random;
 
 public class MainActivity extends Activity {
-    
+
     public static final String SONG_TITLE = "song_title";
     private int red, blue, green = 0;
     private boolean stopColor = false;
@@ -54,7 +54,7 @@ public class MainActivity extends Activity {
 
     public void startTwinkle(View view) {
         Intent intent = new Intent(this, MusicScreen.class);
-        intent.putExtra(SONG_TITLE, "Twinkle Twinkle");
+        intent.putExtra(SONG_TITLE, "Give Me Candy");
         stopColor = true;
         startActivity(intent);
     }
