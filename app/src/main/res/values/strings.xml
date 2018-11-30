@@ -5,4 +5,5 @@
     <string name="right_button">\"\"</string>
     <string name="game_title">Mix-Dynam</string>
     <string name="startsong_twinkle">Give Me Candy</string>
+    <string name="score">00000000</string>
 </resources>

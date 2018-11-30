@@ -45,10 +45,9 @@ public class Note {
     public void start() {
         final ImageView note = new ImageView(screen);
         noteView = note;
-        final ConstraintLayout cl = screen.findViewById(R.id.music_screen);
         if (isLeft) {
             Song.addLeftNote(this);
-            cl.post(new Runnable() {
+            layout.post(new Runnable() {
                 @Override
                 public void run() {
                     note.setImageResource(R.drawable.blue_note);
@@ -82,7 +81,7 @@ public class Note {
             });
         } else {
             Song.addRightNote(this);
-            cl.post(new Runnable() {
+            layout.post(new Runnable() {
                 @Override
                 public void run() {
                     note.setImageResource(R.drawable.red_note);

@@ -7,7 +7,7 @@ import java.util.ArrayList;
 public class SongManager {
     private ArrayList<Song> songList = new ArrayList<>();
     private MusicScreen screen;
-    public static final int delay = -687;
+    private final int delay = -687;
 
     SongManager(MusicScreen screen) {
         this.screen = screen;
