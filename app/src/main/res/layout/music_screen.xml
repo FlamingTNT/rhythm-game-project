@@ -5,7 +5,10 @@
     android:id="@+id/music_screen"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:alpha="1"
     android:background="#999999"
+    android:backgroundTint="#99ffffff"
+    android:backgroundTintMode="src_over"
     tools:context=".MusicScreen">
 
     <TextView
@@ -32,6 +35,7 @@
         android:id="@+id/right_button"
         android:layout_width="50dp"
         android:layout_height="125dp"
+        android:background="#bbff0000"
         android:onClick="rightClicked"
         app:layout_constraintBaseline_toBaselineOf="@+id/left_button"
         app:layout_constraintEnd_toEndOf="parent" />
@@ -42,6 +46,7 @@
         android:layout_height="125dp"
         android:layout_marginTop="16dp"
         android:layout_marginBottom="16dp"
+        android:background="#bb0da7bc"
         android:onClick="leftClicked"
         app:layout_constrainedHeight="false"
         app:layout_constraintBottom_toBottomOf="parent"

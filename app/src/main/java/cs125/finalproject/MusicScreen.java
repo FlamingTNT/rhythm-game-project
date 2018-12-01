@@ -6,6 +6,7 @@ import android.content.pm.ActivityInfo;
 import android.os.Bundle;
 import android.support.constraint.ConstraintLayout;
 import android.view.View;
+import android.view.animation.AlphaAnimation;
 import android.view.animation.Animation;
 import android.view.animation.AnimationSet;
 import android.view.animation.ScaleAnimation;
@@ -34,6 +35,13 @@ public class MusicScreen extends Activity {
         TextView text = findViewById(R.id.song_title);
         text.setText(song);
 
+        //Animation bgFadeIn = new AlphaAnimation(0, 1);
+        if (song.equals("Give Me Candy")) {
+            screen.setBackground(getDrawable(R.drawable.candy));
+        }
+        /*bgFadeIn.setDuration(1500);
+        screen.startAnimation(bgFadeIn);*/
+
         Animation titleLoad = new ScaleAnimation(0, 1, 0.2f, 0.2f);
         titleLoad.setDuration(700);
         titleLoad.setStartOffset(500);
@@ -48,11 +56,16 @@ public class MusicScreen extends Activity {
         coresAnimation.setDuration(1000);
         coresAnimation.setStartOffset(3000);
 
+        Animation scoreFadeIn = new AlphaAnimation(0, 1);
+        scoreFadeIn.setDuration(1000);
+        scoreFadeIn.setStartOffset(4500);
+
         AnimationSet set = new AnimationSet(true);
         set.addAnimation(titleLoad);
         set.addAnimation(titleDrop);
         text.startAnimation(set);
         cores.startAnimation(coresAnimation);
+        scoreView.startAnimation(scoreFadeIn);
 
         new Thread(new Runnable() {
             @Override
@@ -76,10 +89,10 @@ public class MusicScreen extends Activity {
             double percentDistCovered = totalTimeTaken / (Note.DURATION);
             //System.out.println("Total time taken: " + totalTimeTaken);
             //System.out.println("Note destroyed! % dist = " + percentDistCovered);
-            if (percentDistCovered >= 0.8 && closestNote.getView() != null) {
+            if (percentDistCovered >= 0.75 && closestNote.getView() != null) {
+                closestNote.getView().animate().cancel();
+                closestNote.getView().clearAnimation();
                 screen.removeView(closestNote.getView());
-                Song.removeLeftNote(closestNote);
-                closestNote.getView().getAnimation().cancel();
                 score += 100;
                 updateScore();
                 //System.out.println("Your score: " + score);
@@ -94,10 +107,10 @@ public class MusicScreen extends Activity {
             double percentDistCovered = totalTimeTaken / (Note.DURATION);
             //System.out.println("Total time taken: " + totalTimeTaken);
             //System.out.println("Note destroyed! % dist = " + percentDistCovered);
-            if (percentDistCovered >= 0.8 && closestNote.getView() != null) {
-                closestNote.getView().getAnimation().cancel();
+            if (percentDistCovered >= 0.75 && closestNote.getView() != null) {
+                closestNote.getView().animate().cancel();
+                closestNote.getView().clearAnimation();
                 screen.removeView(closestNote.getView());
-                Song.removeRightNote(closestNote);
                 score += 100;
                 updateScore();
                 //System.out.println("Your score: " + score);

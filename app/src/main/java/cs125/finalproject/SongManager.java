@@ -33,8 +33,9 @@ public class SongManager {
 
     public void loadSong(String name) {
         ArrayList<Note> noteList = new ArrayList<>();
-        if (name.equals("candy")) {
-            try {
+
+        try {
+            if (name.equals("candy")) {
                 InputStream is = screen.getAssets().open("candy.txt");
                 BufferedReader reader = new BufferedReader(new InputStreamReader(is));
                 String noteLine;
@@ -46,11 +47,11 @@ public class SongManager {
                         noteList.add(new Note(true, Long.parseLong(split[1]) + delay, screen));
                     }
                 }
-            } catch (IOException e) {
-                e.printStackTrace();
             }
-            currentSong = new Song(noteList);
+        } catch (IOException e) {
+            e.printStackTrace();
         }
+        currentSong = new Song(noteList);
     }
 
     public void playSong() {

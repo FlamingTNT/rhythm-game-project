@@ -50,7 +50,6 @@ public class Note {
 
                         @Override
                         public void onAnimationEnd(Animation animation) {
-                            layout.removeView(note);
                             stop();
                         }
 
@@ -84,7 +83,6 @@ public class Note {
 
                         @Override
                         public void onAnimationEnd(Animation animation) {
-                            layout.removeView(note);
                             stop();
                         }
 
@@ -103,6 +101,7 @@ public class Note {
     }
 
     private void stop() {
+        layout.removeView(noteView);
         if (isLeft) {
             Song.removeLeftNote(this);
         } else {
