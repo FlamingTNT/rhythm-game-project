@@ -44,7 +44,6 @@ public class MusicScreen extends Activity {
         titleDrop.setStartOffset(1500);
 
         LinearLayout cores = findViewById(R.id.core_container);
-        //cores.setY(cores.getY() + 200f);
         Animation coresAnimation = new TranslateAnimation(0, 0, cores.getY() + 1000f, 0);
         coresAnimation.setDuration(1000);
         coresAnimation.setStartOffset(3000);
@@ -58,12 +57,13 @@ public class MusicScreen extends Activity {
         new Thread(new Runnable() {
             @Override
             public void run() {
+                manager.loadSong("candy");
                 try {
                     Thread.sleep(4000);
                 } catch (InterruptedException e) {
                     e.printStackTrace();
                 }
-                manager.playSong(0);
+                manager.playSong();
             }
         }).start();
 

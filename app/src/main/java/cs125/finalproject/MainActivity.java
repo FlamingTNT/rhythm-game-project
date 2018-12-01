@@ -3,21 +3,14 @@ package cs125.finalproject;
 import android.app.Activity;
 import android.content.Intent;
 import android.content.pm.ActivityInfo;
-import android.graphics.Color;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
-import android.widget.EditText;
-import android.widget.LinearLayout;
-import android.widget.TextView;
-
-import java.util.Random;
 
 public class MainActivity extends Activity {
 
     public static final String SONG_TITLE = "song_title";
-    private int red, blue, green = 0;
-    private boolean stopColor = false;
+    //private int red, blue, green = 0;
+    //private boolean stopColor = false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -55,7 +48,7 @@ public class MainActivity extends Activity {
     public void startCandy(View view) {
         Intent intent = new Intent(this, MusicScreen.class);
         intent.putExtra(SONG_TITLE, "Give Me Candy");
-        stopColor = true;
+        //stopColor = true;
         startActivity(intent);
     }
 }
