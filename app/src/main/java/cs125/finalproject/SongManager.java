@@ -3,7 +3,10 @@ package cs125.finalproject;
 import android.graphics.Point;
 import android.media.MediaPlayer;
 import android.view.Display;
+import android.view.View;
 import android.view.WindowManager;
+import android.view.animation.Animation;
+import android.view.animation.TranslateAnimation;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -12,10 +15,11 @@ import java.io.InputStreamReader;
 import java.util.ArrayList;
 
 public class SongManager {
-    //private ArrayList<Song> songList = new ArrayList<>();
     private Song currentSong;
     private MusicScreen screen;
     private final int delay = -687;
+
+    public static MediaPlayer musicPlayer;
     public static int screenWidth;
     public static int screenHeight;
     public static float totalDistance;
@@ -47,6 +51,7 @@ public class SongManager {
                         noteList.add(new Note(true, Long.parseLong(split[1]) + delay, screen));
                     }
                 }
+                musicPlayer = MediaPlayer.create(screen, R.raw.give_me_candy);
             }
         } catch (IOException e) {
             e.printStackTrace();
@@ -55,8 +60,16 @@ public class SongManager {
     }
 
     public void playSong() {
-        MediaPlayer mp = MediaPlayer.create(screen, R.raw.give_me_candy);
-        mp.start();
+        screen.getScreen().post(new Runnable() {
+            @Override
+            public void run() {
+                View bar = screen.findViewById(R.id.progress_bar);
+                Animation progressBar = new TranslateAnimation(-(bar.getWidth()), 0, 0, 0);
+                progressBar.setDuration(SongManager.musicPlayer.getDuration());
+                bar.startAnimation(progressBar);
+            }
+        });
+        musicPlayer.start();
         currentSong.play();
     }
 }

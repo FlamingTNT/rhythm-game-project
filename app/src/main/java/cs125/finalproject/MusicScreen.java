@@ -6,6 +6,7 @@ import android.content.pm.ActivityInfo;
 import android.os.Bundle;
 import android.support.constraint.ConstraintLayout;
 import android.view.View;
+import android.view.ViewGroup;
 import android.view.animation.AlphaAnimation;
 import android.view.animation.Animation;
 import android.view.animation.AnimationSet;
@@ -20,7 +21,7 @@ public class MusicScreen extends Activity {
     private SongManager manager;
     private ConstraintLayout screen;
     private int score = 0;
-    TextView scoreView;
+    private TextView scoreView;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -34,6 +35,11 @@ public class MusicScreen extends Activity {
         String song = intent.getStringExtra(MainActivity.SONG_TITLE);
         TextView text = findViewById(R.id.song_title);
         text.setText(song);
+
+        View bar = screen.findViewById(R.id.progress_bar);
+        ViewGroup.LayoutParams lp = bar.getLayoutParams();
+        lp.width = SongManager.screenWidth;
+        bar.setLayoutParams(lp);
 
         //Animation bgFadeIn = new AlphaAnimation(0, 1);
         if (song.equals("Give Me Candy")) {
@@ -80,6 +86,10 @@ public class MusicScreen extends Activity {
             }
         }).start();
 
+    }
+
+    public ConstraintLayout getScreen() {
+        return screen;
     }
 
     public void leftClicked(View view) {
