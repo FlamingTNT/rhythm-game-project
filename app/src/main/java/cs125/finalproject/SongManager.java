@@ -18,6 +18,7 @@ public class SongManager {
     private Song currentSong;
     private MusicScreen screen;
     private final int delay = -687;
+    private ArrayList<Note> noteList = new ArrayList<>();
 
     public static MediaPlayer musicPlayer;
     public static int screenWidth;
@@ -36,8 +37,6 @@ public class SongManager {
     }
 
     public void loadSong(String name) {
-        ArrayList<Note> noteList = new ArrayList<>();
-
         try {
             if (name.equals("candy")) {
                 InputStream is = screen.getAssets().open("candy.txt");
@@ -66,9 +65,11 @@ public class SongManager {
                 View bar = screen.findViewById(R.id.progress_bar);
                 Animation progressBar = new TranslateAnimation(-(bar.getWidth()), 0, 0, 0);
                 progressBar.setDuration(SongManager.musicPlayer.getDuration());
+                bar.setVisibility(View.VISIBLE);
                 bar.startAnimation(progressBar);
             }
         });
+
         musicPlayer.start();
         currentSong.play();
     }

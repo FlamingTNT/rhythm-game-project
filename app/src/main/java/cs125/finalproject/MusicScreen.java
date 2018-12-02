@@ -97,15 +97,11 @@ public class MusicScreen extends Activity {
             Note closestNote = Song.getActiveLeftNotes().get(0);
             double totalTimeTaken = System.currentTimeMillis() - (Song.startTime + closestNote.getTimeDelay());
             double percentDistCovered = totalTimeTaken / (Note.DURATION);
-            //System.out.println("Total time taken: " + totalTimeTaken);
-            //System.out.println("Note destroyed! % dist = " + percentDistCovered);
             if (percentDistCovered >= 0.75 && closestNote.getView() != null) {
-                closestNote.getView().animate().cancel();
-                closestNote.getView().clearAnimation();
-                screen.removeView(closestNote.getView());
+                float x = SongManager.screenWidth / 2 - ((SongManager.screenWidth / 2) * (float)percentDistCovered);
+                closestNote.noteClicked(x, true);
                 score += 100;
                 updateScore();
-                //System.out.println("Your score: " + score);
             }
         }
     }
@@ -115,15 +111,11 @@ public class MusicScreen extends Activity {
             Note closestNote = Song.getActiveRightNotes().get(0);
             double totalTimeTaken = System.currentTimeMillis() - (Song.startTime + closestNote.getTimeDelay());
             double percentDistCovered = totalTimeTaken / (Note.DURATION);
-            //System.out.println("Total time taken: " + totalTimeTaken);
-            //System.out.println("Note destroyed! % dist = " + percentDistCovered);
             if (percentDistCovered >= 0.75 && closestNote.getView() != null) {
-                closestNote.getView().animate().cancel();
-                closestNote.getView().clearAnimation();
-                screen.removeView(closestNote.getView());
+                float x = SongManager.screenWidth / 2 + ((SongManager.screenWidth / 2) * (float)percentDistCovered);
+                closestNote.noteClicked(x, false);
                 score += 100;
                 updateScore();
-                //System.out.println("Your score: " + score);
             }
         }
     }

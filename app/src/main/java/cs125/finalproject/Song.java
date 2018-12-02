@@ -1,13 +1,15 @@
 package cs125.finalproject;
 
 import java.util.ArrayList;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
 
 public class Song {
-    //private Note[] song;
     private static ArrayList<Note> song = new ArrayList<>();
     public static long startTime;
     private static ArrayList<Note> activeLeftNotes = new ArrayList<>();
     private static ArrayList<Note> activeRightNotes = new ArrayList<>();
+
     Song(ArrayList<Note> newSong) {
         song = newSong;
     }
@@ -17,7 +19,16 @@ public class Song {
         int noteCount = 0;
         while (noteCount < song.size()) {
             if (song.get(noteCount).getTimeDelay() + startTime <= System.currentTimeMillis()) {
-                song.get(noteCount).start();
+                if (noteCount < song.size() - 1 && song.get(noteCount).getTimeDelay() == song.get(noteCount + 1).getTimeDelay()) {
+                    ExecutorService service = Executors.newFixedThreadPool(2);
+                    service.submit(song.get(noteCount));
+                    service.submit(song.get(noteCount + 1));
+
+                    service.shutdown();
+                    noteCount += 2;
+                    continue;
+                }
+                song.get(noteCount).run();
                 noteCount++;
             }
         }
