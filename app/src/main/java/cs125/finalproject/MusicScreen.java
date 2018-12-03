@@ -73,7 +73,7 @@ public class MusicScreen extends Activity {
         cores.startAnimation(coresAnimation);
         scoreView.startAnimation(scoreFadeIn);
 
-        new Thread(new Runnable() {
+        ThreadHandler.addRunnable(new Runnable() {
             @Override
             public void run() {
                 manager.loadSong("candy");
@@ -84,8 +84,7 @@ public class MusicScreen extends Activity {
                 }
                 manager.playSong();
             }
-        }).start();
-
+        });
     }
 
     public ConstraintLayout getScreen() {
@@ -98,7 +97,7 @@ public class MusicScreen extends Activity {
             double totalTimeTaken = System.currentTimeMillis() - (Song.startTime + closestNote.getTimeDelay());
             double percentDistCovered = totalTimeTaken / (Note.DURATION);
             if (percentDistCovered >= 0.75 && closestNote.getView() != null) {
-                float x = SongManager.screenWidth / 2 - ((SongManager.screenWidth / 2) * (float)percentDistCovered);
+                float x = (SongManager.screenWidth / 2) - ((SongManager.screenWidth / 2) * (float)percentDistCovered);
                 closestNote.noteClicked(x, true);
                 score += 100;
                 updateScore();
@@ -112,7 +111,7 @@ public class MusicScreen extends Activity {
             double totalTimeTaken = System.currentTimeMillis() - (Song.startTime + closestNote.getTimeDelay());
             double percentDistCovered = totalTimeTaken / (Note.DURATION);
             if (percentDistCovered >= 0.75 && closestNote.getView() != null) {
-                float x = SongManager.screenWidth / 2 + ((SongManager.screenWidth / 2) * (float)percentDistCovered);
+                float x = (SongManager.screenWidth / 2) + ((SongManager.screenWidth / 2) * (float)percentDistCovered);
                 closestNote.noteClicked(x, false);
                 score += 100;
                 updateScore();

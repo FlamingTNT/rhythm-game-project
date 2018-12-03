@@ -25,19 +25,6 @@ public class Note implements Runnable{
         this.screen = screen;
         noteView = new ImageView(screen);
         layout = screen.findViewById(R.id.music_screen);
-
-        Animation clicked;
-        if (isLeft) {
-            clicked = new ScaleAnimation(1, 1.5f, 1, 1.5f);
-        }  else {
-            clicked = new ScaleAnimation(1, 0.666f, 1, 1.5f, Animation.RELATIVE_TO_SELF, 1, Animation.RELATIVE_TO_SELF, 0.5f);
-        }
-        clicked.setDuration(500);
-        Animation fadeout = new AlphaAnimation(1, 0);
-        fadeout.setDuration(500);
-        set = new AnimationSet(true);
-        set.addAnimation(clicked);
-        set.addAnimation(fadeout);
     }
 
     public long getTimeDelay() {
@@ -62,7 +49,7 @@ public class Note implements Runnable{
                     note.setY((SongManager.screenHeight / 2) - (note.getDrawable().getIntrinsicHeight() / 2));
                     final Animation move = new TranslateAnimation(0, -SongManager.totalDistance, 0, 0);*/
                     final Animation move = new TranslateAnimation(
-                            (SongManager.screenWidth / 2) - (note.getDrawable().getIntrinsicWidth()),
+                            (SongManager.screenWidth / 2) - (note.getDrawable().getIntrinsicWidth() / 2),
                             -50f,
                             (SongManager.screenHeight / 2) - (note.getDrawable().getIntrinsicHeight() / 2),
                             (SongManager.screenHeight / 2) - (note.getDrawable().getIntrinsicHeight() / 2));
@@ -103,7 +90,7 @@ public class Note implements Runnable{
                     note.setY((SongManager.screenHeight / 2) - (note.getDrawable().getIntrinsicHeight() / 2));
                     final Animation move = new TranslateAnimation(0, SongManager.totalDistance, 0, 0);*/
                     final Animation move = new TranslateAnimation(
-                            (SongManager.screenWidth / 2),
+                            (SongManager.screenWidth / 2) - (note.getDrawable().getIntrinsicWidth() / 2),
                             SongManager.screenWidth + 50f,
                             (SongManager.screenHeight / 2) - (note.getDrawable().getIntrinsicHeight() / 2),
                             (SongManager.screenHeight / 2) - (note.getDrawable().getIntrinsicHeight() / 2));
@@ -143,6 +130,18 @@ public class Note implements Runnable{
         noteView.animate().cancel();
         noteView.getAnimation().cancel();
 
+        Animation clicked;
+        if (isLeft) {
+            clicked = new ScaleAnimation(1, 1.5f, 1, 1.5f);
+        }  else {
+            clicked = new ScaleAnimation(1, 1.5f, 1, 1.5f, Animation.ABSOLUTE, noteView.getX()+ (noteView.getDrawable().getIntrinsicWidth() * 2), Animation.RELATIVE_TO_SELF, noteView.getTop());
+        }
+        clicked.setDuration(500);
+        Animation fadeout = new AlphaAnimation(1, 0);
+        fadeout.setDuration(500);
+        set = new AnimationSet(false);
+        set.addAnimation(clicked);
+        set.addAnimation(fadeout);
         noteView.startAnimation(set);
         stop();
     }

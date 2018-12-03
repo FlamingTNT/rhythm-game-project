@@ -1,8 +1,6 @@
 package cs125.finalproject;
 
 import java.util.ArrayList;
-import java.util.concurrent.ExecutorService;
-import java.util.concurrent.Executors;
 
 public class Song {
     private static ArrayList<Note> song = new ArrayList<>();
@@ -20,15 +18,18 @@ public class Song {
         while (noteCount < song.size()) {
             if (song.get(noteCount).getTimeDelay() + startTime <= System.currentTimeMillis()) {
                 if (noteCount < song.size() - 1 && song.get(noteCount).getTimeDelay() == song.get(noteCount + 1).getTimeDelay()) {
-                    ExecutorService service = Executors.newFixedThreadPool(2);
+                    /*ExecutorService service = Executors.newFixedThreadPool(2);
                     service.submit(song.get(noteCount));
                     service.submit(song.get(noteCount + 1));
 
-                    service.shutdown();
+                    service.shutdown();*/
+                    ThreadHandler.addRunnable(song.get(noteCount));
+                    ThreadHandler.addRunnable(song.get(noteCount + 1));
                     noteCount += 2;
                     continue;
                 }
-                song.get(noteCount).run();
+                ThreadHandler.addRunnable(song.get(noteCount));
+                //song.get(noteCount).run();
                 noteCount++;
             }
         }
