@@ -22,6 +22,13 @@ public class MusicScreen extends Activity {
     private ConstraintLayout screen;
     private int score = 0;
     private TextView scoreView;
+
+
+    @Override
+    public void onBackPressed() {
+
+    }
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

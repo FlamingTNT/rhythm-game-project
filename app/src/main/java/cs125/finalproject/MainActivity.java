@@ -51,4 +51,8 @@ public class MainActivity extends Activity {
         //stopColor = true;
         startActivity(intent);
     }
+    public void playlists(View view) {
+        Intent intent = new Intent(this, PlaylistScreen.class);
+        startActivity(intent);
+    }
 }

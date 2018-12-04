@@ -1,7 +1,8 @@
 <resources>
     <string name="app_name">FinalProject</string>
     <string name="song_title">No Song Playing</string>
-    <string name="game_title">Mix-Dynam</string>
+    <string name="game_title">Beat la Beat</string>
     <string name="startsong_candy">Give Me Candy</string>
     <string name="score">00000000</string>
+    <string name="playlist">Listen!</string>
 </resources>
