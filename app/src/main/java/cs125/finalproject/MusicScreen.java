@@ -132,7 +132,7 @@ public class MusicScreen extends Activity {
                 closestNote.noteClicked(x, false);
                 score += 100;
                 updateScore();
-            } else {
+            } else if (percentDistCovered >= 0.40 && percentDistCovered < 0.55){
                 float x = (SongManager.screenWidth / 2) + ((SongManager.screenWidth / 2) * (float)percentDistCovered);
                 closestNote.noteClicked(x, false);
                 score += 0;
