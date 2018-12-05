@@ -12,7 +12,7 @@ public class Song {
         song = newSong;
     }
 
-    public void play() {
+    public boolean play() {
         startTime = System.currentTimeMillis();
         int noteCount = 0;
         while (noteCount < song.size()) {
@@ -33,6 +33,7 @@ public class Song {
                 noteCount++;
             }
         }
+        return true;
     }
     public static ArrayList<Note> getActiveLeftNotes() {
         return activeLeftNotes;

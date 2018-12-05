@@ -1,5 +1,6 @@
 package cs125.finalproject;
 
+import android.content.Intent;
 import android.graphics.Point;
 import android.media.MediaPlayer;
 import android.view.Display;
@@ -17,7 +18,7 @@ import java.util.ArrayList;
 public class SongManager {
     private Song currentSong;
     private MusicScreen screen;
-    private final int delay = -687;
+    private int delay = -687;
     private ArrayList<Note> noteList = new ArrayList<>();
 
     public static MediaPlayer musicPlayer;
@@ -71,6 +72,18 @@ public class SongManager {
         });
 
         musicPlayer.start();
-        currentSong.play();
+        if (currentSong.play()) {
+            screen.getScreen().postDelayed(new Runnable() {
+                @Override
+                public void run() {
+                    Intent intent = new Intent(screen, ResultsScreen.class);
+                    screen.startActivity(intent);
+                }
+            }, 2000);
+        }
+    }
+
+    public void adjustDelay(int changeBy) {
+        delay += changeBy;
     }
 }
