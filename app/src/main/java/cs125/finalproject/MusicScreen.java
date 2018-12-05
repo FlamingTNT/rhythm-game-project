@@ -117,10 +117,25 @@ public class MusicScreen extends Activity {
             Note closestNote = Song.getActiveRightNotes().get(0);
             double totalTimeTaken = System.currentTimeMillis() - (Song.startTime + closestNote.getTimeDelay());
             double percentDistCovered = totalTimeTaken / (Note.DURATION);
-            if (percentDistCovered >= 0.75 && closestNote.getView() != null) {
+            if (percentDistCovered >= 0.85 && closestNote.getView() != null) {
+                float x = (SongManager.screenWidth / 2) + ((SongManager.screenWidth / 2) * (float)percentDistCovered);
+                closestNote.noteClicked(x, false);
+                score += 500;
+                updateScore();
+            } else if (percentDistCovered >= 0.70 && percentDistCovered < 0.85) {
+                float x = (SongManager.screenWidth / 2) + ((SongManager.screenWidth / 2) * (float)percentDistCovered);
+                closestNote.noteClicked(x, false);
+                score += 250;
+                updateScore();
+            } else if (percentDistCovered >= 0.55 && percentDistCovered < 0.70) {
                 float x = (SongManager.screenWidth / 2) + ((SongManager.screenWidth / 2) * (float)percentDistCovered);
                 closestNote.noteClicked(x, false);
                 score += 100;
+                updateScore();
+            } else {
+                float x = (SongManager.screenWidth / 2) + ((SongManager.screenWidth / 2) * (float)percentDistCovered);
+                closestNote.noteClicked(x, false);
+                score += 0;
                 updateScore();
             }
         }

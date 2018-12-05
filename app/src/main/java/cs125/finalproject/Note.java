@@ -39,7 +39,6 @@ public class Note implements Runnable{
     public void run() {
         final ImageView note = noteView;
         if (isLeft) {
-            Song.addLeftNote(this);
             layout.post(new Runnable() {
                 @Override
                 public void run() {
@@ -76,11 +75,11 @@ public class Note implements Runnable{
                             ConstraintLayout.LayoutParams.WRAP_CONTENT);
                     note.setLayoutParams(lp);
                     layout.addView(note);
+                    addLeftNote();
                     note.startAnimation(move);
                 }
             });
         } else {
-            Song.addRightNote(this);
             layout.post(new Runnable() {
                 @Override
                 public void run() {
@@ -117,6 +116,7 @@ public class Note implements Runnable{
                             ConstraintLayout.LayoutParams.WRAP_CONTENT);
                     note.setLayoutParams(lp);
                     layout.addView(note);
+                    addRightNote();
                     note.startAnimation(move);
                 }
             });
@@ -144,6 +144,13 @@ public class Note implements Runnable{
         set.addAnimation(fadeout);
         noteView.startAnimation(set);
         stop();
+    }
+    private void addLeftNote() {
+        Song.addLeftNote(this);
+    }
+
+    private void addRightNote() {
+        Song.addRightNote(this);
     }
 
     private void stop() {
