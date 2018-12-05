@@ -5,4 +5,9 @@
     <string name="startsong_candy">Give Me Candy</string>
     <string name="score">00000000</string>
     <string name="playlist">Listen!</string>
+    <string name="score_container">00000000</string>
+    <string name="perfects">0</string>
+    <string name="goods">0</string>
+    <string name="misses">0</string>
+    <string name="results_bg">0</string>
 </resources>
