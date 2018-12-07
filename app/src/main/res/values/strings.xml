@@ -13,4 +13,5 @@
     <string name="perfects_string">PERFECTS</string>
     <string name="goods_string">GOODS</string>
     <string name="misses_string">MISSED</string>
+    <string name="delay">0</string>
 </resources>

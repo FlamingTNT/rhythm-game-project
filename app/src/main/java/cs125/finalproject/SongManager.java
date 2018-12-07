@@ -18,9 +18,9 @@ import java.util.ArrayList;
 public class SongManager {
     private Song currentSong;
     private MusicScreen screen;
-    private int delay = -687;
     private ArrayList<Note> noteList = new ArrayList<>();
 
+    public static int delay = -687;
     public static MediaPlayer musicPlayer;
     public static int screenWidth;
     public static int screenHeight;

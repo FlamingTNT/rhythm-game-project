@@ -1,6 +1,8 @@
 package cs125.finalproject;
 
 import java.util.ArrayList;
+import java.util.Timer;
+import java.util.TimerTask;
 
 public class Song {
     private static ArrayList<Note> song = new ArrayList<>();
@@ -27,8 +29,15 @@ public class Song {
                 noteCount++;
             }
         }
+        new Timer().schedule(new TimerTask() {
+            @Override
+            public void run() {
+
+            }
+        }, 1000);
         return true;
     }
+
     public static ArrayList<Note> getActiveLeftNotes() {
         return activeLeftNotes;
     }

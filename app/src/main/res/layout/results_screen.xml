@@ -197,7 +197,6 @@
         android:layout_width="107dp"
         android:layout_height="51dp"
         android:background="#dddddd"
-        android:clickable="true"
         android:onClick="finishSong"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent" />

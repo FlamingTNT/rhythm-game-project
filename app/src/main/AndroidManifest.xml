@@ -28,6 +28,11 @@
             android:screenOrientation="landscape"
             android:theme="@android:style/Theme.Wallpaper.NoTitleBar.Fullscreen">
         </activity>
+        <activity android:name=".Calibration"
+            android:parentActivityName=".MainActivity"
+            android:screenOrientation="landscape"
+            android:theme="@android:style/Theme.Wallpaper.NoTitleBar.Fullscreen">
+        </activity>
         <activity android:name=".PlaylistScreen"
                   android:parentActivityName=".MainActivity"
                   android:screenOrientation="landscape"

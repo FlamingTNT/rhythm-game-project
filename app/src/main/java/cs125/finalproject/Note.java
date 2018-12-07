@@ -1,5 +1,6 @@
 package cs125.finalproject;
 
+import android.app.Activity;
 import android.support.constraint.ConstraintLayout;
 import android.view.View;
 import android.view.animation.AlphaAnimation;
@@ -12,19 +13,21 @@ import android.widget.ImageView;
 public class Note implements Runnable{
     private boolean isLeft;
     private long timeDelay;
-    private MusicScreen screen;
     private ConstraintLayout layout;
     public final static int DURATION = 1000;
     private boolean wasClicked = false;
     private ImageView noteView;
     private AnimationSet set;
 
-    Note(boolean isLeft, long timeDelay, MusicScreen screen) {
+    Note(boolean isLeft, long timeDelay, Activity screen) {
         this.isLeft = isLeft;
         this.timeDelay = timeDelay;
-        this.screen = screen;
         noteView = new ImageView(screen);
-        layout = screen.findViewById(R.id.music_screen);
+        if (screen instanceof MusicScreen) {
+            layout = screen.findViewById(R.id.music_screen);
+        } else if (screen instanceof Calibration) {
+            layout = screen.findViewById(R.id.calibration);
+        }
     }
 
     public long getTimeDelay() {
