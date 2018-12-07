@@ -1,19 +1,23 @@
 package cs125.finalproject;
 
-import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
+import java.util.concurrent.ThreadPoolExecutor;
+import java.util.concurrent.TimeUnit;
 
 public abstract class ThreadHandler {
-    private static ExecutorService executor = Executors.newFixedThreadPool(4);
+    private static ThreadPoolExecutor executor = (ThreadPoolExecutor) Executors.newFixedThreadPool(4);
 
     public static void addRunnable(Runnable runnable) {
-        executor.submit(runnable);
+        executor.setKeepAliveTime(5, TimeUnit.SECONDS);
+        executor.execute(runnable);
     }
+
     public static void shutdown() {
         executor.shutdown();
         executor.shutdownNow();
     }
-    public static ExecutorService getExecutor() {
+
+    public static ThreadPoolExecutor getExecutor() {
         return executor;
     }
 }

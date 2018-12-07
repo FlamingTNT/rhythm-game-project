@@ -73,13 +73,18 @@ public class SongManager {
 
         musicPlayer.start();
         if (currentSong.play()) {
+            musicPlayer.stop();
+            currentSong = null;
+            noteList = null;
             screen.getScreen().postDelayed(new Runnable() {
                 @Override
                 public void run() {
                     Intent intent = new Intent(screen, ResultsScreen.class);
+                    intent.putExtra("scoreCounts", screen.getScoreCounts());
+                    intent.putExtra("score", screen.getScore());
                     screen.startActivity(intent);
                 }
-            }, 2000);
+            }, 3000);
         }
     }
 

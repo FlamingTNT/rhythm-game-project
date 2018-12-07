@@ -10,4 +10,7 @@
     <string name="goods">0</string>
     <string name="misses">0</string>
     <string name="results_bg">0</string>
+    <string name="perfects_string">PERFECTS</string>
+    <string name="goods_string">GOODS</string>
+    <string name="misses_string">MISSED</string>
 </resources>

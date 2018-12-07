@@ -1,10 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/results_screen"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#999999">
+    android:background="#999999"
+    tools:context=".ResultsScreen">
 
     <ImageView
         android:id="@+id/results_bg"
@@ -58,7 +60,7 @@
         app:layout_constraintHorizontal_bias="0.498"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.87" />
+        app:layout_constraintVertical_bias="0.894" />
 
     <ImageView
         android:id="@+id/misses"
@@ -73,5 +75,147 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.798" />
+
+    <TextView
+        android:id="@+id/numPerfects"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/perfects"
+        android:textAlignment="center"
+        android:textAllCaps="false"
+        android:textColor="#ffffff"
+        android:textSize="30sp"
+        android:textStyle="bold"
+        android:visibility="invisible"
+        app:layout_constraintBottom_toBottomOf="@+id/perfects"
+        app:layout_constraintEnd_toEndOf="@+id/perfects"
+        app:layout_constraintStart_toStartOf="@+id/perfects"
+        app:layout_constraintTop_toTopOf="@+id/perfects"
+        app:layout_constraintVertical_bias="0.19" />
+
+    <TextView
+        android:id="@+id/perfects_string"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:fontFamily="monospace"
+        android:text="PERFECTS"
+        android:textAlignment="center"
+        android:textAllCaps="false"
+        android:textColor="#ffffff"
+        android:textSize="15sp"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toBottomOf="@+id/perfects"
+        app:layout_constraintEnd_toEndOf="@+id/perfects"
+        app:layout_constraintStart_toStartOf="@+id/perfects"
+        app:layout_constraintTop_toTopOf="@+id/perfects"
+        app:layout_constraintVertical_bias="0.75" />
+
+    <TextView
+        android:id="@+id/numGoods"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/goods"
+        android:textAlignment="center"
+        android:textAllCaps="false"
+        android:textColor="#ffffff"
+        android:textSize="30sp"
+        android:textStyle="bold"
+        android:visibility="invisible"
+        app:layout_constraintBottom_toBottomOf="@+id/goods"
+        app:layout_constraintEnd_toEndOf="@+id/goods"
+        app:layout_constraintStart_toStartOf="@+id/goods"
+        app:layout_constraintTop_toTopOf="@+id/goods"
+        app:layout_constraintVertical_bias="0.19" />
+
+    <TextView
+        android:id="@+id/goods_string"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:fontFamily="monospace"
+        android:text="GOODS"
+        android:textAlignment="center"
+        android:textAllCaps="false"
+        android:textColor="#ffffff"
+        android:textSize="15sp"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toBottomOf="@+id/goods"
+        app:layout_constraintEnd_toEndOf="@+id/goods"
+        app:layout_constraintStart_toStartOf="@+id/goods"
+        app:layout_constraintTop_toTopOf="@+id/goods"
+        app:layout_constraintVertical_bias="0.75" />
+
+    <TextView
+        android:id="@+id/numMisses"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/goods"
+        android:textAlignment="center"
+        android:textAllCaps="false"
+        android:textColor="#ffffff"
+        android:textSize="30sp"
+        android:textStyle="bold"
+        android:visibility="invisible"
+        app:layout_constraintBottom_toBottomOf="@+id/misses"
+        app:layout_constraintEnd_toEndOf="@+id/misses"
+        app:layout_constraintStart_toStartOf="@+id/misses"
+        app:layout_constraintTop_toTopOf="@+id/misses"
+        app:layout_constraintVertical_bias="0.19" />
+
+    <TextView
+        android:id="@+id/misses_string"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:fontFamily="monospace"
+        android:text="MISSED"
+        android:textAlignment="center"
+        android:textAllCaps="false"
+        android:textColor="#ffffff"
+        android:textSize="15sp"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toBottomOf="@+id/misses"
+        app:layout_constraintEnd_toEndOf="@+id/misses"
+        app:layout_constraintStart_toStartOf="@+id/misses"
+        app:layout_constraintTop_toTopOf="@+id/misses"
+        app:layout_constraintVertical_bias="0.75" />
+
+    <TextView
+        android:id="@+id/final_score"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="00000000"
+        android:textAlignment="center"
+        android:textColor="#cb1eea"
+        android:textSize="32sp"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toBottomOf="@+id/score_container"
+        app:layout_constraintEnd_toEndOf="@+id/score_container"
+        app:layout_constraintStart_toStartOf="@+id/score_container"
+        app:layout_constraintTop_toTopOf="@+id/score_container" />
+
+    <View
+        android:id="@+id/finish_button"
+        android:layout_width="107dp"
+        android:layout_height="51dp"
+        android:background="#dddddd"
+        android:clickable="true"
+        android:onClick="finishSong"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/finish_btn_text"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="2dp"
+        android:fontFamily="cursive"
+        android:text="DONE"
+        android:textAlignment="center"
+        android:textColor="#ff44ff"
+        android:textSize="20sp"
+        android:textStyle="bold|italic"
+        app:layout_constraintBottom_toBottomOf="@+id/finish_button"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="@+id/finish_button"
+        app:layout_constraintTop_toTopOf="parent" />
 
 </android.support.constraint.ConstraintLayout>
