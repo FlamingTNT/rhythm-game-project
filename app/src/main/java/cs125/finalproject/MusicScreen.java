@@ -13,6 +13,7 @@ import android.view.animation.Animation;
 import android.view.animation.AnimationSet;
 import android.view.animation.ScaleAnimation;
 import android.view.animation.TranslateAnimation;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
@@ -24,10 +25,18 @@ public class MusicScreen extends Activity {
     private int score = 0;
     private TextView scoreView;
     private int[] scoreCounts = new int[4];
+    private boolean isPaused = false;
+    private boolean readyToStart = false;
 
     @Override
     public void onBackPressed() {
-
+        if (isPaused) {
+            isPaused = false;
+            manager.resumeSong();
+        } else if (readyToStart){
+            isPaused = true;
+            manager.pauseSong();
+        }
     }
 
     @Override
@@ -40,7 +49,7 @@ public class MusicScreen extends Activity {
         scoreView = findViewById(R.id.score);
 
         Intent intent = getIntent();
-        String song = intent.getStringExtra(MainActivity.SONG_TITLE);
+        final String song = intent.getStringExtra(MainActivity.SONG_TITLE);
         TextView text = findViewById(R.id.song_title);
         text.setText(song);
 
@@ -52,6 +61,8 @@ public class MusicScreen extends Activity {
         //Animation bgFadeIn = new AlphaAnimation(0, 1);
         if (song.equals("Give Me Candy")) {
             screen.setBackground(getDrawable(R.drawable.candy));
+        } else if (song.equals("Carol of the Bells")) {
+            screen.setBackground(getDrawable(R.drawable.carol));
         }
         /*bgFadeIn.setDuration(1500);
         screen.startAnimation(bgFadeIn);*/
@@ -74,34 +85,59 @@ public class MusicScreen extends Activity {
         scoreFadeIn.setDuration(1000);
         scoreFadeIn.setStartOffset(4500);
 
+        ImageView pauseButton = findViewById(R.id.pause_button);
+
         AnimationSet set = new AnimationSet(true);
         set.addAnimation(titleLoad);
         set.addAnimation(titleDrop);
         text.startAnimation(set);
         cores.startAnimation(coresAnimation);
         scoreView.startAnimation(scoreFadeIn);
+        pauseButton.startAnimation(scoreFadeIn);
 
         ThreadHandler.addRunnable(new Runnable() {
             @Override
             public void run() {
                 android.os.Process.setThreadPriority(Process.THREAD_PRIORITY_BACKGROUND);
-                manager.loadSong("candy");
+                if (song.equals("Give Me Candy")) {
+                    manager.loadSong("candy");
+                } else if (song.equals("Carol of the Bells")) {
+                    manager.loadSong("carol");
+                }
                 try {
                     Thread.sleep(4000);
                 } catch (InterruptedException e) {
                     e.printStackTrace();
                 }
+                readyToStart = true;
                 manager.playSong();
             }
         });
     }
 
+    /*@Override
+    public void onPause() {
+        isPaused = true;
+        manager.pauseSong();
+        super.onPause();
+    }*/
+
     public ConstraintLayout getScreen() {
         return screen;
     }
 
+    public void pauseAndResume(View view) {
+        if (isPaused) {
+            isPaused = false;
+            manager.resumeSong();
+        } else if (readyToStart){
+            isPaused = true;
+            manager.pauseSong();
+        }
+    }
+
     public void leftClicked(View view) {
-        if (Song.getActiveLeftNotes().size() > 0) {
+        if (Song.getActiveLeftNotes().size() > 0 && !isPaused) {
             Note closestNote = Song.getActiveLeftNotes().get(0);
             double totalTimeTaken = System.currentTimeMillis() - (Song.startTime + closestNote.getTimeDelay());
             double percentDistCovered = totalTimeTaken / (Note.DURATION);
@@ -116,7 +152,7 @@ public class MusicScreen extends Activity {
     }
 
     public void rightClicked(View view) {
-        if (Song.getActiveRightNotes().size() > 0) {
+        if (Song.getActiveRightNotes().size() > 0 && !isPaused) {
             Note closestNote = Song.getActiveRightNotes().get(0);
             double totalTimeTaken = System.currentTimeMillis() - (Song.startTime + closestNote.getTimeDelay());
             double percentDistCovered = totalTimeTaken / (Note.DURATION);

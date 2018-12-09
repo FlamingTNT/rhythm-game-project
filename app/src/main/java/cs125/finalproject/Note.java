@@ -50,7 +50,7 @@ public class Note implements Runnable{
                     /*note.setX((SongManager.screenWidth / 2) - (note.getDrawable().getIntrinsicWidth()));
                     note.setY((SongManager.screenHeight / 2) - (note.getDrawable().getIntrinsicHeight() / 2));
                     final Animation move = new TranslateAnimation(0, -SongManager.totalDistance, 0, 0);*/
-                    final Animation move = new TranslateAnimation(
+                    final Animation move = new PausableTranslateAnimation(
                             (SongManager.screenWidth / 2) - (note.getDrawable().getIntrinsicWidth() / 2),
                             -50f,
                             (SongManager.screenHeight / 2) - (note.getDrawable().getIntrinsicHeight() / 2),
@@ -91,7 +91,7 @@ public class Note implements Runnable{
                     /*note.setX(SongManager.screenWidth / 2);
                     note.setY((SongManager.screenHeight / 2) - (note.getDrawable().getIntrinsicHeight() / 2));
                     final Animation move = new TranslateAnimation(0, SongManager.totalDistance, 0, 0);*/
-                    final Animation move = new TranslateAnimation(
+                    final Animation move = new PausableTranslateAnimation(
                             (SongManager.screenWidth / 2) - (note.getDrawable().getIntrinsicWidth() / 2),
                             SongManager.screenWidth + 50f,
                             (SongManager.screenHeight / 2) - (note.getDrawable().getIntrinsicHeight() / 2),
@@ -124,6 +124,26 @@ public class Note implements Runnable{
                 }
             });
         }
+    }
+
+    public void pause() {
+        final PausableTranslateAnimation anim = (PausableTranslateAnimation) noteView.getAnimation();
+        layout.post(new Runnable() {
+            @Override
+            public void run() {
+                anim.pause();
+            }
+        });
+    }
+
+    public void resume() {
+        final PausableTranslateAnimation anim = (PausableTranslateAnimation) noteView.getAnimation();
+        layout.post(new Runnable() {
+            @Override
+            public void run() {
+                anim.resume();
+            }
+        });
     }
 
     public void noteClicked(final float x, final boolean isLeft) {

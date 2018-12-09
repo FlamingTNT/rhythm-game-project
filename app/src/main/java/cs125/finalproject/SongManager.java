@@ -19,6 +19,7 @@ public class SongManager {
     private Song currentSong;
     private MusicScreen screen;
     private ArrayList<Note> noteList = new ArrayList<>();
+    private boolean isSongInProgress = false;
 
     public static int delay = -687;
     public static MediaPlayer musicPlayer;
@@ -38,9 +39,18 @@ public class SongManager {
     }
 
     public void loadSong(String name) {
+        String filename = "calibration_song";
+        int songID = 0;
+        if (name.equals("candy")) {
+            filename = "candy.txt";
+            songID = R.raw.give_me_candy;
+        } else if (name.equals("carol")) {
+            filename = "carol.txt";
+            songID = R.raw.carol_of_the_bells;
+        }
         try {
-            if (name.equals("candy")) {
-                InputStream is = screen.getAssets().open("candy.txt");
+            //if (name.equals("candy")) {
+                InputStream is = screen.getAssets().open(filename);
                 BufferedReader reader = new BufferedReader(new InputStreamReader(is));
                 String noteLine;
                 while ((noteLine = reader.readLine()) != null) {
@@ -51,12 +61,12 @@ public class SongManager {
                         noteList.add(new Note(true, Long.parseLong(split[1]) + delay, screen));
                     }
                 }
-                musicPlayer = MediaPlayer.create(screen, R.raw.give_me_candy);
-            }
+                musicPlayer = MediaPlayer.create(screen, songID);
+           //}
         } catch (IOException e) {
             e.printStackTrace();
         }
-        currentSong = new Song(noteList);
+        currentSong = new Song(noteList, musicPlayer);
     }
 
     public void playSong() {
@@ -64,21 +74,22 @@ public class SongManager {
             @Override
             public void run() {
                 View bar = screen.findViewById(R.id.progress_bar);
-                Animation progressBar = new TranslateAnimation(-(bar.getWidth()), 0, 0, 0);
-                progressBar.setDuration(SongManager.musicPlayer.getDuration());
+                Animation progressBar = new PausableTranslateAnimation(-(bar.getWidth()), 0, 0, 0);
+                progressBar.setDuration(musicPlayer.getDuration());
                 bar.setVisibility(View.VISIBLE);
                 bar.startAnimation(progressBar);
             }
         });
 
-        musicPlayer.start();
+        isSongInProgress = true;
         if (currentSong.play()) {
-            musicPlayer.stop();
             currentSong = null;
             noteList = null;
             screen.getScreen().postDelayed(new Runnable() {
                 @Override
                 public void run() {
+                    isSongInProgress = false;
+                    musicPlayer.stop();
                     Intent intent = new Intent(screen, ResultsScreen.class);
                     intent.putExtra("scoreCounts", screen.getScoreCounts());
                     intent.putExtra("score", screen.getScore());
@@ -88,7 +99,31 @@ public class SongManager {
         }
     }
 
-    public void adjustDelay(int changeBy) {
-        delay += changeBy;
+    public void pauseSong() {
+        if (isSongInProgress) {
+            screen.getScreen().post(new Runnable() {
+                @Override
+                public void run() {
+                    View bar = screen.findViewById(R.id.progress_bar);
+                    PausableTranslateAnimation anim = (PausableTranslateAnimation) bar.getAnimation();
+                    anim.pause();
+                    currentSong.pause();
+                }
+            });
+        }
+    }
+
+    public void resumeSong() {
+        if (isSongInProgress) {
+            screen.getScreen().post(new Runnable() {
+                @Override
+                public void run() {
+                    View bar = screen.findViewById(R.id.progress_bar);
+                    PausableTranslateAnimation anim = (PausableTranslateAnimation) bar.getAnimation();
+                    anim.resume();
+                    currentSong.resume();
+                }
+            });
+        }
     }
 }
