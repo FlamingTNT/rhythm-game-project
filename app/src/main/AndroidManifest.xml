@@ -36,7 +36,8 @@
         <activity android:name=".PlaylistScreen"
                   android:parentActivityName=".MainActivity"
                   android:screenOrientation="landscape"
-                  android:theme="@android:style/Theme.Wallpaper.NoTitleBar.Fullscreen">
+                  android:theme="@android:style/Theme.Wallpaper.NoTitleBar.Fullscreen"
+                  android:targetSdkVersion="19">
         </activity>
 
     </application>
