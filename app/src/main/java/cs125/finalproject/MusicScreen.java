@@ -24,7 +24,7 @@ public class MusicScreen extends Activity {
     private ConstraintLayout screen;
     private int score = 0;
     private TextView scoreView;
-    private int[] scoreCounts = new int[3];
+    private static int[] scoreCounts = new int[3];
     private boolean isPaused = false;
     private boolean readyToStart = false;
 
@@ -150,21 +150,21 @@ public class MusicScreen extends Activity {
             Note closestNote = Song.getActiveLeftNotes().get(0);
             double totalTimeTaken = System.currentTimeMillis() - (Song.startTime + closestNote.getTimeDelay());
             double percentDistCovered = totalTimeTaken / (Note.DURATION);
-            if (percentDistCovered >= 0.85 && closestNote.getView() != null) {
+            if (percentDistCovered >= 0.80 && closestNote.getView() != null) {
                 float x = (SongManager.screenWidth / 2) - ((SongManager.screenWidth / 2) * (float)percentDistCovered);
                 closestNote.noteClicked(x, true);
                 score += 500;
                 scoreCounts[0]++;
                 displayHitScore(0, true);
                 updateScore();
-            } else if (percentDistCovered >= 0.55 && percentDistCovered < 0.85) {
+            } else if (percentDistCovered >= 0.60 && percentDistCovered < 0.80) {
                 float x = (SongManager.screenWidth / 2) - ((SongManager.screenWidth / 2) * (float)percentDistCovered);
                 closestNote.noteClicked(x, true);
                 score += 250;
                 scoreCounts[1]++;
                 displayHitScore(1, true);
                 updateScore();
-            } else if (percentDistCovered >= 0.40 && percentDistCovered < 0.55){
+            } else if (percentDistCovered >= 0.40 && percentDistCovered < 0.60){
                 float x = (SongManager.screenWidth / 2) - ((SongManager.screenWidth / 2) * (float)percentDistCovered);
                 closestNote.noteClicked(x, true);
                 score += 0;
@@ -253,6 +253,13 @@ public class MusicScreen extends Activity {
 
     public int[] getScoreCounts() {
         return scoreCounts;
+    }
+
+    public static void addMissToScoreCounts(){scoreCounts[2]++;}
+    public static void resetScoreCounts() {
+        scoreCounts[0] = 0;
+        scoreCounts[1] = 0;
+        scoreCounts[2] = 0;
     }
 
     public int getScore() {

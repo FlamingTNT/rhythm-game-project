@@ -21,6 +21,7 @@ public class Song {
     public boolean play() {
         startTime = System.currentTimeMillis();
         int noteCount = 0;
+        MusicScreen.resetScoreCounts();
         musicPlayer.start();
         while (noteCount < song.size()) {
             if (song.get(noteCount).getTimeDelay() + startTime <= System.currentTimeMillis() && !isPaused) {

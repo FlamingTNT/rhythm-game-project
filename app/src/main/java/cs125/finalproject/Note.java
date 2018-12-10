@@ -17,8 +17,10 @@ public class Note implements Runnable{
     private boolean wasClicked = false;
     private ImageView noteView;
     private AnimationSet set;
+    private MusicScreen mScreen;
 
     Note(boolean isLeft, long timeDelay, Activity screen) {
+        mScreen = (MusicScreen) screen;
         this.isLeft = isLeft;
         this.timeDelay = timeDelay;
         noteView = new ImageView(screen);
@@ -61,6 +63,7 @@ public class Note implements Runnable{
                         @Override
                         public void onAnimationEnd(Animation animation) {
                             if (!wasClicked) {
+                                ;
                                 stop();
                             }
                         }
@@ -99,6 +102,7 @@ public class Note implements Runnable{
                         @Override
                         public void onAnimationEnd(Animation animation) {
                             if (!wasClicked) {
+                                mScreen.addMissToScoreCounts();
                                 stop();
                             }
                         }
