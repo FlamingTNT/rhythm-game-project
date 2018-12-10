@@ -20,7 +20,7 @@ public class SongManager {
     private ArrayList<Note> noteList = new ArrayList<>();
     private boolean isSongInProgress = false;
 
-    public static int delay = -687;
+    public static int delay = -1000;
     public static MediaPlayer musicPlayer;
     public static int screenWidth;
     public static int screenHeight;
