@@ -7,7 +7,6 @@ import android.view.Display;
 import android.view.View;
 import android.view.WindowManager;
 import android.view.animation.Animation;
-import android.view.animation.TranslateAnimation;
 
 import java.io.BufferedReader;
 import java.io.IOException;

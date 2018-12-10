@@ -1,11 +1,8 @@
 package cs125.finalproject;
 
 import android.media.MediaPlayer;
-import android.provider.MediaStore;
 
 import java.util.ArrayList;
-import java.util.Timer;
-import java.util.TimerTask;
 
 public class Song {
     private static ArrayList<Note> song = new ArrayList<>();
@@ -37,12 +34,9 @@ public class Song {
                 noteCount++;
             }
         }
-        new Timer().schedule(new TimerTask() {
-            @Override
-            public void run() {
-
-            }
-        }, 1000);
+        while (musicPlayer.isPlaying()) {
+            //:D
+        }
         return true;
     }
 
