@@ -94,17 +94,40 @@ public class Song {
 
     public static void addLeftNote(Note note) {
         activeLeftNotes.add(note);
+        toBeYellow();
     }
 
     public static void removeLeftNote(Note note) {
         activeLeftNotes.remove(note);
+        toBeYellow();
     }
 
     public static void addRightNote(Note note) {
         activeRightNotes.add(note);
+        toBeYellow();
     }
 
     public static void removeRightNote(Note note) {
         activeRightNotes.remove(note);
+        toBeYellow();
+    }
+
+    public static void toBeYellow() {
+        if (activeLeftNotes.size() > 0) {
+            if (activeRightNotes.size() > 0) {
+                if (activeLeftNotes.get(0).getTimeDelay() == activeRightNotes.get(0).getTimeDelay()) {
+                    activeLeftNotes.get(0).getView().setImageResource(R.drawable.next_note);
+                    activeRightNotes.get(0).getView().setImageResource(R.drawable.next_note);
+                } else if (activeLeftNotes.get(0).getTimeDelay() < activeRightNotes.get(0).getTimeDelay()) {
+                    activeLeftNotes.get(0).getView().setImageResource(R.drawable.next_note);
+                } else {
+                    activeRightNotes.get(0).getView().setImageResource(R.drawable.next_note);
+                }
+            } else {
+                activeLeftNotes.get(0).getView().setImageResource(R.drawable.next_note);
+            }
+        } else if (activeRightNotes.size() > 0){
+            activeRightNotes.get(0).getView().setImageResource(R.drawable.next_note);
+        }
     }
 }

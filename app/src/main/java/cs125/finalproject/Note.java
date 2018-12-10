@@ -7,7 +7,6 @@ import android.view.animation.AlphaAnimation;
 import android.view.animation.Animation;
 import android.view.animation.AnimationSet;
 import android.view.animation.ScaleAnimation;
-import android.view.animation.TranslateAnimation;
 import android.widget.ImageView;
 
 public class Note implements Runnable{
@@ -34,7 +33,7 @@ public class Note implements Runnable{
         return timeDelay;
     }
 
-    public View getView() {
+    public ImageView getView() {
         return noteView;
     }
     public boolean isLeft() { return isLeft; }
@@ -47,9 +46,6 @@ public class Note implements Runnable{
                 public void run() {
                     note.setImageResource(R.drawable.blue_note);
                     note.setVisibility(View.VISIBLE);
-                    /*note.setX((SongManager.screenWidth / 2) - (note.getDrawable().getIntrinsicWidth()));
-                    note.setY((SongManager.screenHeight / 2) - (note.getDrawable().getIntrinsicHeight() / 2));
-                    final Animation move = new TranslateAnimation(0, -SongManager.totalDistance, 0, 0);*/
                     final Animation move = new PausableTranslateAnimation(
                             (SongManager.screenWidth / 2) - (note.getDrawable().getIntrinsicWidth() / 2),
                             -50f,
@@ -88,9 +84,6 @@ public class Note implements Runnable{
                 public void run() {
                     note.setImageResource(R.drawable.red_note);
                     note.setVisibility(View.VISIBLE);
-                    /*note.setX(SongManager.screenWidth / 2);
-                    note.setY((SongManager.screenHeight / 2) - (note.getDrawable().getIntrinsicHeight() / 2));
-                    final Animation move = new TranslateAnimation(0, SongManager.totalDistance, 0, 0);*/
                     final Animation move = new PausableTranslateAnimation(
                             (SongManager.screenWidth / 2) - (note.getDrawable().getIntrinsicWidth() / 2),
                             SongManager.screenWidth + 50f,
