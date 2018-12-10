@@ -28,14 +28,16 @@ import org.json.JSONObject;
 
 
 
-public class PlaylistScreen extends YouTubeBaseActivity implements YouTubePlayer.OnInitializedListener  {
+public class PlaylistScreen extends YouTubeBaseActivity implements YouTubePlayer.OnInitializedListener {
     final String candyID = "7zkppq9Gp70";
+    final String carolID = "JZkvL0snS7w";
     public static final String YOUTUBE_API_KEY = "AIzaSyAqyp431Piz_gqCtQ2ZEW5o3CKdP_aSSYg";
     private static final String TAG = "BeatLeBeat";
     private static RequestQueue requestQueue;
+    private YouTubePlayer vidPlayer;
     private YouTubePlayerView youTubeView;
     private static final int RECOVERY_REQUEST = 1;
-
+    private int selector = 0;
     void startAPICall() {
         try {
             JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(
@@ -67,16 +69,19 @@ public class PlaylistScreen extends YouTubeBaseActivity implements YouTubePlayer
         youTubeView.initialize(YOUTUBE_API_KEY, this);
     }
 
-
-
-    public void listenToCandy(View view){
-        startAPICall();
+    public void listenToCandy(View view) {
+        playVideo(candyID);
+    }
+    public void listenToCarol(View view) {
+        playVideo(carolID);
     }
 
     @Override
-    public void onInitializationSuccess(YouTubePlayer.Provider provider, YouTubePlayer youTubePlayer, boolean b) {
+    public void onInitializationSuccess(YouTubePlayer.Provider provider, YouTubePlayer player, boolean b) {
         if(!b) {
-            youTubePlayer.cueVideo(candyID);
+            if (vidPlayer == null) {
+                vidPlayer = player;
+            }
         }
     }
 
@@ -86,4 +91,16 @@ public class PlaylistScreen extends YouTubeBaseActivity implements YouTubePlayer
             youTubeInitializationResult.getErrorDialog(this, RECOVERY_REQUEST).show();
         }
     }
+
+    private void playVideo(String videoId){
+        if(vidPlayer != null){
+            vidPlayer.loadVideo(videoId);
+        }
+    }
+
+
+
+
+
+
 }
