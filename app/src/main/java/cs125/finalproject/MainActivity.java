@@ -8,7 +8,7 @@ import android.view.View;
 
 public class MainActivity extends Activity {
 
-    public static final String SONG_TITLE = "song_title";
+    public static String songTitle = "songTitle";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -19,13 +19,13 @@ public class MainActivity extends Activity {
 
     public void startCandy(View view) {
         Intent intent = new Intent(this, MusicScreen.class);
-        intent.putExtra(SONG_TITLE, "Give Me Candy");
+        songTitle = "Give Me Candy";
         //stopColor = true;
         startActivity(intent);
     }
     public void startCarol(View view) {
         Intent intent = new Intent(this, MusicScreen.class);
-        intent.putExtra(SONG_TITLE, "Carol of the Bells");
+        songTitle = "Carol of the Bells";
         startActivity(intent);
     }
     public void playlists(View view) {

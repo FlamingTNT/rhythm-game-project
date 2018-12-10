@@ -41,7 +41,7 @@ public class ResultsScreen extends Activity {
         final TextView numGoods = findViewById(R.id.numGoods);
         numGoods.setText(((Integer) scoreCounts[1]).toString());
         final TextView numMisses = findViewById(R.id.numMisses);
-        numMisses.setText(((Integer) scoreCounts[3]).toString());
+        numMisses.setText(((Integer) scoreCounts[2]).toString());
 
         ViewGroup.LayoutParams lp = bg.getLayoutParams();
         lp.height = (int)height;

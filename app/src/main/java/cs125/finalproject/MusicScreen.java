@@ -1,8 +1,8 @@
 package cs125.finalproject;
 
 import android.app.Activity;
-import android.content.Intent;
 import android.content.pm.ActivityInfo;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.os.Process;
 import android.support.constraint.ConstraintLayout;
@@ -24,7 +24,7 @@ public class MusicScreen extends Activity {
     private ConstraintLayout screen;
     private int score = 0;
     private TextView scoreView;
-    private int[] scoreCounts = new int[4];
+    private int[] scoreCounts = new int[3];
     private boolean isPaused = false;
     private boolean readyToStart = false;
 
@@ -33,9 +33,11 @@ public class MusicScreen extends Activity {
         if (isPaused) {
             isPaused = false;
             manager.resumeSong();
+            findViewById(R.id.pause_menu).setVisibility(View.INVISIBLE);
         } else if (readyToStart){
             isPaused = true;
             manager.pauseSong();
+            findViewById(R.id.pause_menu).setVisibility(View.VISIBLE);
         }
     }
 
@@ -48,8 +50,7 @@ public class MusicScreen extends Activity {
         screen = findViewById(R.id.music_screen);
         scoreView = findViewById(R.id.score);
 
-        Intent intent = getIntent();
-        final String song = intent.getStringExtra(MainActivity.SONG_TITLE);
+        final String song = MainActivity.songTitle;
         TextView text = findViewById(R.id.song_title);
         text.setText(song);
 
@@ -130,10 +131,18 @@ public class MusicScreen extends Activity {
         if (isPaused) {
             isPaused = false;
             manager.resumeSong();
+            findViewById(R.id.pause_menu).setVisibility(View.INVISIBLE);
         } else if (readyToStart){
             isPaused = true;
             manager.pauseSong();
+            findViewById(R.id.pause_menu).setVisibility(View.VISIBLE);
         }
+    }
+
+    public void resumeSong(View view) {
+        isPaused = false;
+        manager.resumeSong();
+        findViewById(R.id.pause_menu).setVisibility(View.INVISIBLE);
     }
 
     public void leftClicked(View view) {
@@ -141,11 +150,26 @@ public class MusicScreen extends Activity {
             Note closestNote = Song.getActiveLeftNotes().get(0);
             double totalTimeTaken = System.currentTimeMillis() - (Song.startTime + closestNote.getTimeDelay());
             double percentDistCovered = totalTimeTaken / (Note.DURATION);
-            if (percentDistCovered >= 0.75 && closestNote.getView() != null) {
+            if (percentDistCovered >= 0.85 && closestNote.getView() != null) {
                 float x = (SongManager.screenWidth / 2) - ((SongManager.screenWidth / 2) * (float)percentDistCovered);
                 closestNote.noteClicked(x, true);
-                score += 100;
+                score += 500;
                 scoreCounts[0]++;
+                displayHitScore(0, true);
+                updateScore();
+            } else if (percentDistCovered >= 0.55 && percentDistCovered < 0.85) {
+                float x = (SongManager.screenWidth / 2) - ((SongManager.screenWidth / 2) * (float)percentDistCovered);
+                closestNote.noteClicked(x, true);
+                score += 250;
+                scoreCounts[1]++;
+                displayHitScore(1, true);
+                updateScore();
+            } else if (percentDistCovered >= 0.40 && percentDistCovered < 0.55){
+                float x = (SongManager.screenWidth / 2) - ((SongManager.screenWidth / 2) * (float)percentDistCovered);
+                closestNote.noteClicked(x, true);
+                score += 0;
+                scoreCounts[2]++;
+                displayHitScore(2, true);
                 updateScore();
             }
         }
@@ -156,32 +180,70 @@ public class MusicScreen extends Activity {
             Note closestNote = Song.getActiveRightNotes().get(0);
             double totalTimeTaken = System.currentTimeMillis() - (Song.startTime + closestNote.getTimeDelay());
             double percentDistCovered = totalTimeTaken / (Note.DURATION);
-            if (percentDistCovered >= 0.85 && closestNote.getView() != null) {
+            if (percentDistCovered >= 0.80 && closestNote.getView() != null) {
                 float x = (SongManager.screenWidth / 2) + ((SongManager.screenWidth / 2) * (float)percentDistCovered);
                 closestNote.noteClicked(x, false);
                 score += 500;
                 scoreCounts[0]++;
+                displayHitScore(0, false);
                 updateScore();
-            } else if (percentDistCovered >= 0.70 && percentDistCovered < 0.85) {
+            } else if (percentDistCovered >= 0.55 && percentDistCovered < 0.80) {
                 float x = (SongManager.screenWidth / 2) + ((SongManager.screenWidth / 2) * (float)percentDistCovered);
                 closestNote.noteClicked(x, false);
                 score += 250;
                 scoreCounts[1]++;
-                updateScore();
-            } else if (percentDistCovered >= 0.55 && percentDistCovered < 0.70) {
-                float x = (SongManager.screenWidth / 2) + ((SongManager.screenWidth / 2) * (float)percentDistCovered);
-                closestNote.noteClicked(x, false);
-                score += 100;
-                scoreCounts[2]++;
+                displayHitScore(1, false);
                 updateScore();
             } else if (percentDistCovered >= 0.40 && percentDistCovered < 0.55){
                 float x = (SongManager.screenWidth / 2) + ((SongManager.screenWidth / 2) * (float)percentDistCovered);
                 closestNote.noteClicked(x, false);
                 score += 0;
-                scoreCounts[3]++;
+                scoreCounts[2]++;
+                displayHitScore(2, false);
                 updateScore();
             }
         }
+    }
+
+    public void displayHitScore(int scoreIndex, boolean isLeft) {
+        TextView text;
+        if (isLeft) {
+            text = findViewById(R.id.left_hit_text);
+        } else {
+            text = findViewById(R.id.right_hit_text);
+        }
+        final TextView textView = text;
+        if (scoreIndex == 0) {
+            textView.setText("PERFECT");
+            textView.setTextColor(Color.rgb(255, 0, 255));
+        } else if (scoreIndex == 1) {
+            textView.setText("GOOD");
+            textView.setTextColor(Color.rgb(0, 255, 255));
+        } else {
+            textView.setText("MISS");
+            text.setTextColor(Color.rgb(255, 0, 0));
+        }
+        Animation fadeOut = new AlphaAnimation(1, 0);
+        Animation.AnimationListener listener = new Animation.AnimationListener() {
+            @Override
+            public void onAnimationStart(Animation animation) {
+                textView.setVisibility(View.VISIBLE);
+            }
+
+            @Override
+            public void onAnimationEnd(Animation animation) {
+                textView.setVisibility(View.INVISIBLE);
+            }
+
+            @Override
+            public void onAnimationRepeat(Animation animation) {
+
+            }
+        };
+        fadeOut.setAnimationListener(listener);
+        fadeOut.setDuration(500);
+        fadeOut.setStartOffset(500);
+        textView.startAnimation(fadeOut);
     }
 
     public void updateScore() {
