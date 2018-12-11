@@ -26,20 +26,22 @@
         android:text="@string/startsong_candy"
         app:layout_constraintBottom_toTopOf="@+id/youtube_view"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.221"
+        app:layout_constraintHorizontal_bias="0.079"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.0" />
 
     <Button
         android:id="@+id/carol"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginEnd="97dp"
+        android:layout_marginEnd="204dp"
         android:onClick="listenToCarol"
         android:text="Carol of the Bells"
         app:layout_constraintBottom_toBottomOf="@+id/youtubecandy"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/youtubecandy" />
+        app:layout_constraintTop_toTopOf="@+id/youtubecandy"
+        app:layout_constraintVertical_bias="0.0" />
 
     <TextView
         android:id="@+id/textView"
@@ -51,4 +53,14 @@
         app:layout_constraintBottom_toTopOf="@+id/youtube_view"
         app:layout_constraintStart_toEndOf="@+id/youtubecandy"
         app:layout_constraintTop_toTopOf="parent" />
+
+    <Button
+        android:id="@+id/button2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="69dp"
+        android:onClick="listenToRoad"
+        android:text="The Road"
+        app:layout_constraintBaseline_toBaselineOf="@+id/carol"
+        app:layout_constraintEnd_toEndOf="parent" />
 </android.support.constraint.ConstraintLayout>

@@ -28,6 +28,13 @@ public class MainActivity extends Activity {
         songTitle = "Carol of the Bells";
         startActivity(intent);
     }
+
+    public void startRoad(View view) {
+        Intent intent = new Intent(this, MusicScreen.class);
+        songTitle = "The Road";
+        startActivity(intent);
+    }
+
     public void playlists(View view) {
         Intent intent = new Intent(this, PlaylistScreen.class);
         startActivity(intent);

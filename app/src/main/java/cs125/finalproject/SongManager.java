@@ -46,6 +46,11 @@ public class SongManager {
         } else if (name.equals("carol")) {
             filename = "carol.txt";
             songID = R.raw.carol_of_the_bells;
+        } else if (name.equals("the_road")) {
+            filename = "road.txt";
+            songID = R.raw.the_road;
+            System.out.println(R.raw.the_road);
+            System.out.println("Song id obtained");
         }
         try {
             //if (name.equals("candy")) {
@@ -61,6 +66,7 @@ public class SongManager {
                     }
                 }
                 musicPlayer = MediaPlayer.create(screen, songID);
+            System.out.println(musicPlayer);
            //}
         } catch (IOException e) {
             e.printStackTrace();

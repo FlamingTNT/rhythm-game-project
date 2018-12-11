@@ -64,6 +64,8 @@ public class MusicScreen extends Activity {
             screen.setBackground(getDrawable(R.drawable.candy));
         } else if (song.equals("Carol of the Bells")) {
             screen.setBackground(getDrawable(R.drawable.carol));
+        } else if (song.equals("The Road")) {
+            screen.setBackground(getDrawable(R.drawable.road));
         }
         /*bgFadeIn.setDuration(1500);
         screen.startAnimation(bgFadeIn);*/
@@ -104,6 +106,8 @@ public class MusicScreen extends Activity {
                     manager.loadSong("candy");
                 } else if (song.equals("Carol of the Bells")) {
                     manager.loadSong("carol");
+                } else if (song.equals("The Road")) {
+                    manager.loadSong("the_road");
                 }
                 try {
                     Thread.sleep(4000);
