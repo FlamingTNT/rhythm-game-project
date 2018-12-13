@@ -28,6 +28,7 @@ public class MusicScreen extends Activity {
     private static int[] scoreCounts = new int[3];
     public static boolean isPaused;
     private boolean readyToStart = false;
+    public String song;
 
     @Override
     public void onBackPressed() {
@@ -56,7 +57,7 @@ public class MusicScreen extends Activity {
         isPaused = false;
         System.out.println("Is paused reset to: " + isPaused);
 
-        final String song = MainActivity.songTitle;
+        song = MainActivity.songTitle;
         TextView text = findViewById(R.id.song_title);
         text.setText(song);
 

@@ -93,6 +93,13 @@ public class SongManager {
                     Intent intent = new Intent(screen, ResultsScreen.class);
                     intent.putExtra("scoreCounts", screen.getScoreCounts());
                     intent.putExtra("score", screen.getScore());
+                    if (screen.song.equals("Give Me Candy")) {
+                        intent.putExtra("songName", "candy");
+                    } else if (screen.song.equals("Carol of the Bells")) {
+                        intent.putExtra("songName", "carol");
+                    } else if (screen.song.equals("The Road")) {
+                        intent.putExtra("songName", "road");
+                    }
                     screen.startActivity(intent);
                 }
             }, 3000);

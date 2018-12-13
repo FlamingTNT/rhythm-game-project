@@ -31,12 +31,36 @@ public class HighScoreScreen extends Activity {
     protected void onStart() {
         super.onStart();
         int score = getIntent().getIntExtra("score", 0);
+        String songName = getIntent().getStringExtra("songName");
         SharedPreferences prefs = this.getSharedPreferences("scores", Context.MODE_PRIVATE);
-        int first = prefs.getInt("first", 0);
-        int second = prefs.getInt("second", 0);
-        int third = prefs.getInt("third", 0);
-        int fourth = prefs.getInt("fourth", 0);
-        int fifth = prefs.getInt("fifth", 0);
+        int first = 0;
+        int second = 0;
+        int third = 0;
+        int fourth = 0;
+        int fifth = 0;
+        switch (songName) {
+            case "candy":
+                first = prefs.getInt("first_candy", 0);
+                second = prefs.getInt("second_candy", 0);
+                third = prefs.getInt("third_candy", 0);
+                fourth = prefs.getInt("fourth_candy", 0);
+                fifth = prefs.getInt("fifth_candy", 0);
+                break;
+            case "carol":
+                first = prefs.getInt("first_carol", 0);
+                second = prefs.getInt("second_carol", 0);
+                third = prefs.getInt("third_carol", 0);
+                fourth = prefs.getInt("fourth_carol", 0);
+                fifth = prefs.getInt("fifth_carol", 0);
+                break;
+            case "road":
+                first = prefs.getInt("first_road", 0);
+                second = prefs.getInt("second_road", 0);
+                third = prefs.getInt("third_road", 0);
+                fourth = prefs.getInt("fourth_road", 0);
+                fifth = prefs.getInt("fifth_road", 0);
+                break;
+        }
 
         TextView highScoreTag = findViewById(R.id.high_score_tag);
         boolean updateScores = false;
@@ -99,11 +123,29 @@ public class HighScoreScreen extends Activity {
 
         if (updateScores) {
             SharedPreferences.Editor editor = prefs.edit();
-            editor.putInt("first", first);
-            editor.putInt("second", second);
-            editor.putInt("third", third);
-            editor.putInt("fourth", fourth);
-            editor.putInt("fifth", fifth);
+            switch (songName) {
+                case "candy":
+                    editor.putInt("first_candy", first);
+                    editor.putInt("second_candy", second);
+                    editor.putInt("third_candy", third);
+                    editor.putInt("fourth_candy", fourth);
+                    editor.putInt("fifth_candy", fifth);
+                    break;
+                case "carol":
+                    editor.putInt("first_carol", first);
+                    editor.putInt("second_carol", second);
+                    editor.putInt("third_carol", third);
+                    editor.putInt("fourth_carol", fourth);
+                    editor.putInt("fifth_carol", fifth);
+                    break;
+                case "road":
+                    editor.putInt("first_road", first);
+                    editor.putInt("second_road", second);
+                    editor.putInt("third_road", third);
+                    editor.putInt("fourth_road", fourth);
+                    editor.putInt("fifth_road", fifth);
+                    break;
+            }
             editor.apply();
         }
     }

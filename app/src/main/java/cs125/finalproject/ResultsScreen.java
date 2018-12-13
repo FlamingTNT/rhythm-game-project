@@ -18,6 +18,7 @@ import java.util.Locale;
 public class ResultsScreen extends Activity {
     private int[] scoreCounts;
     private int score;
+    private String songName;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -32,6 +33,7 @@ public class ResultsScreen extends Activity {
         super.onStart();
         scoreCounts = getIntent().getIntArrayExtra("scoreCounts");
         score = getIntent().getIntExtra("score", 0);
+        songName = getIntent().getStringExtra("songName");
         ConstraintLayout screen = findViewById(R.id.results_screen);
         ImageView bg = findViewById(R.id.results_bg);
 
@@ -90,6 +92,7 @@ public class ResultsScreen extends Activity {
     public void finishSong(View view) {
         Intent intent = new Intent(this, HighScoreScreen.class);
         intent.putExtra("score", score);
+        intent.putExtra("songName", songName);
         startActivity(intent);
         finishAfterTransition();
     }
