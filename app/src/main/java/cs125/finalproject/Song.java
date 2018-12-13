@@ -5,17 +5,20 @@ import android.media.MediaPlayer;
 import java.util.ArrayList;
 
 public class Song {
-    private static ArrayList<Note> song = new ArrayList<>();
-    private static MediaPlayer musicPlayer;
-    public static long startTime;
+    private ArrayList<Note> song;
+    private MediaPlayer musicPlayer;
+    public long startTime;
     private static ArrayList<Note> activeLeftNotes = new ArrayList<>();
     private static ArrayList<Note> activeRightNotes = new ArrayList<>();
-    private static long timeWhenPaused = 0;
-    private static boolean isPaused = false;
+    private long timeWhenPaused = 0;
+    public boolean endSong;
 
     Song(ArrayList<Note> newSong, MediaPlayer newMusicPlayer) {
+        activeLeftNotes = new ArrayList<>();
+        activeRightNotes = new ArrayList<>();
         song = newSong;
         musicPlayer = newMusicPlayer;
+        endSong = false;
     }
 
     public boolean play() {
@@ -23,8 +26,8 @@ public class Song {
         int noteCount = 0;
         MusicScreen.resetScoreCounts();
         musicPlayer.start();
-        while (noteCount < song.size()) {
-            if (song.get(noteCount).getTimeDelay() + startTime <= System.currentTimeMillis() && !isPaused) {
+        while (noteCount < song.size() && !endSong) {
+            if (song.get(noteCount).getTimeDelay() + startTime <= System.currentTimeMillis() && !MusicScreen.isPaused) {
                 if (noteCount < song.size() - 1 && song.get(noteCount).getTimeDelay() == song.get(noteCount + 1).getTimeDelay()) {
                     ThreadHandler.addRunnable(song.get(noteCount));
                     ThreadHandler.addRunnable(song.get(noteCount + 1));
@@ -35,15 +38,17 @@ public class Song {
                 noteCount++;
             }
         }
-        while (musicPlayer.isPlaying()) {
-            //:D
+        if (endSong) {
+            song = null;
+            endSong = false;
+            return false;
+        } else {
+            return true;
         }
-        return true;
     }
 
     public void pause() {
         timeWhenPaused = System.currentTimeMillis();
-        isPaused = true;
         ThreadHandler.addRunnable(new Runnable() {
             @Override
             public void run() {
@@ -68,7 +73,6 @@ public class Song {
         ThreadHandler.addRunnable(new Runnable() {
             @Override
             public void run() {
-                isPaused = false;
                 for (Note note : activeLeftNotes) {
                     note.resume();
                 }

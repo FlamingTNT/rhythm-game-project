@@ -18,13 +18,12 @@ public class SongManager {
     private Song currentSong;
     private MusicScreen screen;
     private ArrayList<Note> noteList = new ArrayList<>();
-    private boolean isSongInProgress = false;
+    public boolean isSongInProgress = false;
 
     public static int delay = -1000;
-    public static MediaPlayer musicPlayer;
+    public MediaPlayer musicPlayer;
     public static int screenWidth;
     public static int screenHeight;
-    public static float totalDistance;
 
     SongManager(MusicScreen screen) {
         this.screen = screen;
@@ -34,7 +33,7 @@ public class SongManager {
         display.getSize(size);
         screenWidth = size.x;
         screenHeight = size.y;
-        totalDistance = ((screenWidth / 2) + 50f);
+        currentSong = null;
     }
 
     public void loadSong(String name) {
@@ -50,24 +49,20 @@ public class SongManager {
             filename = "road.txt";
             songID = R.raw.the_road;
             System.out.println(R.raw.the_road);
-            System.out.println("Song id obtained");
         }
         try {
-            //if (name.equals("candy")) {
-                InputStream is = screen.getAssets().open(filename);
-                BufferedReader reader = new BufferedReader(new InputStreamReader(is));
-                String noteLine;
-                while ((noteLine = reader.readLine()) != null) {
-                    String[] split = noteLine.split(":");
-                    if (split[0].equals("0")) { //IS A RIGHT-SIDE NOTE
-                        noteList.add(new Note(false, Long.parseLong(split[1]) + delay, screen));
-                    } else { //IS A LEFT-SIDE NOTE
-                        noteList.add(new Note(true, Long.parseLong(split[1]) + delay, screen));
-                    }
+            InputStream is = screen.getAssets().open(filename);
+            BufferedReader reader = new BufferedReader(new InputStreamReader(is));
+            String noteLine;
+            while ((noteLine = reader.readLine()) != null) {
+                String[] split = noteLine.split(":");
+                if (split[0].equals("0")) { //IS A RIGHT-SIDE NOTE
+                    noteList.add(new Note(false, Long.parseLong(split[1]) + delay, screen));
+                } else { //IS A LEFT-SIDE NOTE
+                    noteList.add(new Note(true, Long.parseLong(split[1]) + delay, screen));
                 }
-                musicPlayer = MediaPlayer.create(screen, songID);
-            System.out.println(musicPlayer);
-           //}
+            }
+            musicPlayer = MediaPlayer.create(screen, songID);
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -104,6 +99,10 @@ public class SongManager {
         }
     }
 
+    public long getStartTime() {
+        return currentSong.startTime;
+    }
+
     public void pauseSong() {
         if (isSongInProgress) {
             screen.getScreen().post(new Runnable() {
@@ -130,5 +129,9 @@ public class SongManager {
                 }
             });
         }
+    }
+
+    public void endSong() {
+        currentSong.endSong = true;
     }
 }
