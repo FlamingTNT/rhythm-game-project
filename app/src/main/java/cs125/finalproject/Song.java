@@ -11,13 +11,14 @@ public class Song {
     private static ArrayList<Note> activeLeftNotes = new ArrayList<>();
     private static ArrayList<Note> activeRightNotes = new ArrayList<>();
     private long timeWhenPaused = 0;
-    public boolean endSong = false;
+    public boolean endSong;
 
     Song(ArrayList<Note> newSong, MediaPlayer newMusicPlayer) {
         activeLeftNotes = new ArrayList<>();
         activeRightNotes = new ArrayList<>();
         song = newSong;
         musicPlayer = newMusicPlayer;
+        endSong = false;
     }
 
     public boolean play() {
@@ -25,12 +26,7 @@ public class Song {
         int noteCount = 0;
         MusicScreen.resetScoreCounts();
         musicPlayer.start();
-        while (noteCount < song.size() && musicPlayer.isPlaying()) {
-            if (endSong) {
-                song = null;
-                endSong = false;
-                return false;
-            }
+        while (noteCount < song.size() && !endSong) {
             if (song.get(noteCount).getTimeDelay() + startTime <= System.currentTimeMillis() && !MusicScreen.isPaused) {
                 if (noteCount < song.size() - 1 && song.get(noteCount).getTimeDelay() == song.get(noteCount + 1).getTimeDelay()) {
                     ThreadHandler.addRunnable(song.get(noteCount));
@@ -42,7 +38,13 @@ public class Song {
                 noteCount++;
             }
         }
-        return true;
+        if (endSong) {
+            song = null;
+            endSong = false;
+            return false;
+        } else {
+            return true;
+        }
     }
 
     public void pause() {

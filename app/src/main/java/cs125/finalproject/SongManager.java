@@ -33,6 +33,7 @@ public class SongManager {
         display.getSize(size);
         screenWidth = size.x;
         screenHeight = size.y;
+        currentSong = null;
     }
 
     public void loadSong(String name) {
@@ -48,7 +49,6 @@ public class SongManager {
             filename = "road.txt";
             songID = R.raw.the_road;
             System.out.println(R.raw.the_road);
-            System.out.println("Song id obtained");
         }
         try {
             InputStream is = screen.getAssets().open(filename);

@@ -187,7 +187,7 @@ public class MusicScreen extends Activity {
         }
         Intent intent = new Intent(this, MainActivity.class);
         startActivity(intent);
-        finish();
+        finishAfterTransition();
     }
 
     public void leftClicked(View view) {

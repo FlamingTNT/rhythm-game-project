@@ -37,7 +37,6 @@
         android:layout_marginTop="16dp"
         android:layout_marginBottom="16dp"
         android:background="#bb0da7bc"
-        android:onClick="leftClicked"
         app:layout_constrainedHeight="false"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"
