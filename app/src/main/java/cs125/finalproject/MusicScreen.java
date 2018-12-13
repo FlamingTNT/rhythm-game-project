@@ -1,6 +1,7 @@
 package cs125.finalproject;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.content.pm.ActivityInfo;
 import android.graphics.Color;
 import android.os.Bundle;
@@ -25,19 +26,22 @@ public class MusicScreen extends Activity {
     private int score = 0;
     private TextView scoreView;
     private static int[] scoreCounts = new int[3];
-    private boolean isPaused = false;
+    public static boolean isPaused;
     private boolean readyToStart = false;
 
     @Override
     public void onBackPressed() {
-        if (isPaused) {
+        if (isPaused && manager.isSongInProgress) {
             isPaused = false;
             manager.resumeSong();
             findViewById(R.id.pause_menu).setVisibility(View.INVISIBLE);
-        } else if (readyToStart){
+            System.out.println("UNPAUSED VIA BACK! isPaused = " + isPaused);
+        } else if (!isPaused && readyToStart && manager.isSongInProgress){
             isPaused = true;
             manager.pauseSong();
             findViewById(R.id.pause_menu).setVisibility(View.VISIBLE);
+            findViewById(R.id.pause_menu).bringToFront();
+            System.out.println("PAUSED VIA BACK! isPaused = " + isPaused);
         }
     }
 
@@ -49,6 +53,8 @@ public class MusicScreen extends Activity {
         manager = new SongManager(this);
         screen = findViewById(R.id.music_screen);
         scoreView = findViewById(R.id.score);
+        isPaused = false;
+        System.out.println("Is paused reset to: " + isPaused);
 
         final String song = MainActivity.songTitle;
         TextView text = findViewById(R.id.song_title);
@@ -132,14 +138,17 @@ public class MusicScreen extends Activity {
     }
 
     public void pauseAndResume(View view) {
-        if (isPaused) {
+        if (isPaused && manager.isSongInProgress) {
             isPaused = false;
             manager.resumeSong();
             findViewById(R.id.pause_menu).setVisibility(View.INVISIBLE);
-        } else if (readyToStart){
+            System.out.println("UNPAUSED VIA BUTTON! isPaused = " + isPaused);
+        } else if (!isPaused && readyToStart && manager.isSongInProgress){
             isPaused = true;
             manager.pauseSong();
             findViewById(R.id.pause_menu).setVisibility(View.VISIBLE);
+            findViewById(R.id.pause_menu).bringToFront();
+            System.out.println("PAUSED VIA BUTTON! isPaused = " + isPaused);
         }
     }
 
@@ -149,10 +158,42 @@ public class MusicScreen extends Activity {
         findViewById(R.id.pause_menu).setVisibility(View.INVISIBLE);
     }
 
+    public void restartSong(View view) {
+        manager.endSong();
+        for (Note note : Song.getActiveLeftNotes()) {
+            note.getView().animate().cancel();
+            note.getView().getAnimation().cancel();
+            screen.removeView(note.getView());
+        }
+        for (Note note : Song.getActiveRightNotes()) {
+            note.getView().animate().cancel();
+            note.getView().getAnimation().cancel();
+            screen.removeView(note.getView());
+        }
+        recreate();
+    }
+
+    public void quitSong(View view) {
+        manager.endSong();
+        for (Note note : Song.getActiveLeftNotes()) {
+            note.getView().animate().cancel();
+            note.getView().getAnimation().cancel();
+            screen.removeView(note.getView());
+        }
+        for (Note note : Song.getActiveRightNotes()) {
+            note.getView().animate().cancel();
+            note.getView().getAnimation().cancel();
+            screen.removeView(note.getView());
+        }
+        Intent intent = new Intent(this, MainActivity.class);
+        startActivity(intent);
+        finish();
+    }
+
     public void leftClicked(View view) {
         if (Song.getActiveLeftNotes().size() > 0 && !isPaused) {
             Note closestNote = Song.getActiveLeftNotes().get(0);
-            double totalTimeTaken = System.currentTimeMillis() - (Song.startTime + closestNote.getTimeDelay());
+            double totalTimeTaken = System.currentTimeMillis() - (manager.getStartTime() + closestNote.getTimeDelay());
             double percentDistCovered = totalTimeTaken / (Note.DURATION);
             if (percentDistCovered >= 0.80 && closestNote.getView() != null) {
                 float x = (SongManager.screenWidth / 2) - ((SongManager.screenWidth / 2) * (float)percentDistCovered);
@@ -182,7 +223,7 @@ public class MusicScreen extends Activity {
     public void rightClicked(View view) {
         if (Song.getActiveRightNotes().size() > 0 && !isPaused) {
             Note closestNote = Song.getActiveRightNotes().get(0);
-            double totalTimeTaken = System.currentTimeMillis() - (Song.startTime + closestNote.getTimeDelay());
+            double totalTimeTaken = System.currentTimeMillis() - (manager.getStartTime() + closestNote.getTimeDelay());
             double percentDistCovered = totalTimeTaken / (Note.DURATION);
             if (percentDistCovered >= 0.80 && closestNote.getView() != null) {
                 float x = (SongManager.screenWidth / 2) + ((SongManager.screenWidth / 2) * (float)percentDistCovered);

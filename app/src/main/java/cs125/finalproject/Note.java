@@ -36,6 +36,7 @@ public class Note implements Runnable{
     public ImageView getView() {
         return noteView;
     }
+
     public boolean isLeft() { return isLeft; }
 
     public void run() {
@@ -171,7 +172,7 @@ public class Note implements Runnable{
         Song.addRightNote(this);
     }
 
-    private void stop() {
+    public void stop() {
         layout.removeView(noteView);
         if (isLeft) {
             Song.removeLeftNote(this);

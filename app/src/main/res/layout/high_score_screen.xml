@@ -1,0 +1,160 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/high_score_screen"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#999999"
+    tools:context=".HighScoreScreen">
+
+    <ImageView
+        android:id="@+id/score_container"
+        android:layout_width="446dp"
+        android:layout_height="290dp"
+        android:contentDescription="@string/score_container"
+        android:src="@drawable/simple_menu"
+        android:visibility="visible"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.542" />
+
+    <TextView
+        android:id="@+id/yourScore"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="00000000"
+        android:textAlignment="center"
+        android:textColor="#cb1eea"
+        android:textSize="32sp"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toBottomOf="@+id/score_container"
+        app:layout_constraintEnd_toEndOf="@+id/score_container"
+        app:layout_constraintHorizontal_bias="0.053"
+        app:layout_constraintStart_toStartOf="@+id/score_container"
+        app:layout_constraintTop_toTopOf="@+id/score_container"
+        app:layout_constraintVertical_bias="0.483" />
+
+    <TextView
+        android:id="@+id/score1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="1st - 00000000"
+        android:textAlignment="center"
+        android:textColor="#c99a02"
+        android:textSize="34sp"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toBottomOf="@+id/score_container"
+        app:layout_constraintEnd_toEndOf="@+id/score_container"
+        app:layout_constraintHorizontal_bias="0.885"
+        app:layout_constraintStart_toStartOf="@+id/score_container"
+        app:layout_constraintTop_toTopOf="@+id/score_container"
+        app:layout_constraintVertical_bias="0.138" />
+
+    <TextView
+        android:id="@+id/score2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="2nd - 00000000"
+        android:textAlignment="center"
+        android:textColor="#859da3"
+        android:textSize="30sp"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toBottomOf="@+id/score_container"
+        app:layout_constraintEnd_toEndOf="@+id/score_container"
+        app:layout_constraintHorizontal_bias="0.89"
+        app:layout_constraintStart_toStartOf="@+id/score_container"
+        app:layout_constraintTop_toTopOf="@+id/score_container"
+        app:layout_constraintVertical_bias="0.327" />
+
+    <TextView
+        android:id="@+id/score3"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="3rd - 00000000"
+        android:textAlignment="center"
+        android:textColor="#756730"
+        android:textSize="29sp"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toBottomOf="@+id/score_container"
+        app:layout_constraintEnd_toEndOf="@+id/score_container"
+        app:layout_constraintHorizontal_bias="0.903"
+        app:layout_constraintStart_toStartOf="@+id/score_container"
+        app:layout_constraintTop_toTopOf="@+id/score_container"
+        app:layout_constraintVertical_bias="0.493" />
+
+    <TextView
+        android:id="@+id/score4"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="4th - 00000000"
+        android:textAlignment="center"
+        android:textColor="#315dc4"
+        android:textSize="27sp"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toBottomOf="@+id/score_container"
+        app:layout_constraintEnd_toEndOf="@+id/score_container"
+        app:layout_constraintHorizontal_bias="0.906"
+        app:layout_constraintStart_toStartOf="@+id/score_container"
+        app:layout_constraintTop_toTopOf="@+id/score_container"
+        app:layout_constraintVertical_bias="0.652" />
+
+    <TextView
+        android:id="@+id/score5"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="5th - 00000000"
+        android:textAlignment="center"
+        android:textColor="#0d9626"
+        android:textSize="25sp"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toBottomOf="@+id/score_container"
+        app:layout_constraintEnd_toEndOf="@+id/score_container"
+        app:layout_constraintHorizontal_bias="0.906"
+        app:layout_constraintStart_toStartOf="@+id/score_container"
+        app:layout_constraintTop_toTopOf="@+id/score_container"
+        app:layout_constraintVertical_bias="0.798" />
+
+    <View
+        android:id="@+id/finish_button"
+        android:layout_width="107dp"
+        android:layout_height="51dp"
+        android:background="#dddddd"
+        android:onClick="finishSong"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/finish_btn_text"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="2dp"
+        android:fontFamily="cursive"
+        android:text="DONE"
+        android:textAlignment="center"
+        android:textColor="#ff44ff"
+        android:textSize="20sp"
+        android:textStyle="bold|italic"
+        app:layout_constraintBottom_toBottomOf="@+id/finish_button"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="@+id/finish_button"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/high_score_tag"
+        android:layout_width="157dp"
+        android:layout_height="19dp"
+        android:layout_marginTop="8dp"
+        android:text="New High Score!"
+        android:textAlignment="center"
+        android:textColor="#ffffff"
+        android:textStyle="bold|italic"
+        android:visibility="invisible"
+        app:layout_constraintEnd_toEndOf="@+id/score_container"
+        app:layout_constraintHorizontal_bias="0.05"
+        app:layout_constraintStart_toStartOf="@+id/score_container"
+        app:layout_constraintTop_toBottomOf="@+id/yourScore" />
+
+</android.support.constraint.ConstraintLayout>

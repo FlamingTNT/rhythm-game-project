@@ -39,6 +39,10 @@
                   android:theme="@android:style/Theme.Wallpaper.NoTitleBar.Fullscreen"
                   android:targetSdkVersion="19">
         </activity>
+        <activity android:name=".HighScoreScreen"
+            android:parentActivityName=".MainActivity"
+            android:screenOrientation="landscape"
+            android:theme="@android:style/Theme.Wallpaper.NoTitleBar.Fullscreen"/>
 
     </application>
 

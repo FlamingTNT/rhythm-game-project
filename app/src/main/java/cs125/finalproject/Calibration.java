@@ -67,7 +67,7 @@ public class Calibration extends Activity {
         delay.setText(((Integer) SongManager.delay).toString());
     }
 
-    public void leftClicked(View view) {
+    /*public void leftClicked(View view) {
         if (Song.getActiveLeftNotes().size() > 0) {
             Note closestNote = Song.getActiveLeftNotes().get(0);
             double totalTimeTaken = System.currentTimeMillis() - (Song.startTime + closestNote.getTimeDelay());
@@ -77,5 +77,5 @@ public class Calibration extends Activity {
                 closestNote.noteClicked(x, true);
             }
         }
-    }
+    }*/
 }
